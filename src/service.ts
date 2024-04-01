@@ -40,17 +40,6 @@ function makeHeader(w: wordDto) {
   $flex.appendChild($div);
 
   return [$flex, $like, $dislike];
-
-  // const word = wrapWithSpan(w.word);
-  // const likeImage = wrapImage(w.isLike === "1" ? t_u_f : t_u);
-  // const dislikeImage = wrapImage(w.isLike === "0" ? t_d_f : t_d);
-  // const like = wrapWithSpan(w.like_amount + "\u00a0" + likeImage);
-  // const dislike = wrapWithSpan(w.dislike_amount + "\u00a0" + dislikeImage);
-  // const vote = wrapWithDiv(like + "\u00a0\u00a0" + dislike);
-  // const flex = flex_between(word, vote);
-  // const $result = document.createElement("header");
-  // $result.innerHTML = flex;
-  // return $result;
 }
 
 async function getWords(keyword: string, page: Number, $div: HTMLElement) {
@@ -87,7 +76,15 @@ async function removeAllCards($div: HTMLElement) {
   $div.replaceChildren();
 }
 
-export { getWords, addWordCards, removeAllCards };
+async function createWord(
+  $word: HTMLInputElement,
+  $meaning: HTMLTextAreaElement
+) {
+  await ax.post("/create", { word: $word.value, meaning: $meaning.value });
+  location.replace("index.html");
+}
+
+export { getWords, addWordCards, removeAllCards, createWord };
 
 async function addClickListener(
   $like: HTMLElement,

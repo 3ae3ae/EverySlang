@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Every Slang</title>
+  </head>
+  <body>
+    <header></header>
+    <main class="container" id="main">
+      <form id="createWord" method="post">
+        <fieldset>
+          <label>
+            Word
+            <input id="word" name="word" placeholder="Word" type="text" />
+          </label>
+          <label>
+            Meaning
+            <textarea
+              id="meaning"
+              name="meaning"
+              cols="30"
+              rows="10"
+              placeholder="Meaning"
+            ></textarea>
+          </label>
+        </fieldset>
+        <input type="submit" value="Submit" />
+      </form>
+    </main>
+    <footer></footer>
+    <script type="module" src="/src/createWord.ts"></script>
+  </body>
+</html>
