@@ -1,6 +1,5 @@
 import axios from "axios";
 import { wordDto } from "./model";
-import { flex_between, wrapImage, wrapWith } from "./elements";
 import t_u_f from "./thumb_up_FILL.svg";
 import t_u from "./thumb_up.svg";
 import t_d from "./thumb_down.svg";
@@ -8,24 +7,53 @@ import t_d_f from "./thumb_down_FILL.svg";
 
 const BaseUrl = "http://localhost:3000";
 const ax = axios.create({ baseURL: BaseUrl });
-const cards: HTMLElement[] = [];
+const cards: Map<number, number> = new Map();
 
-const wrapWithHeader = (text: String) => wrapWith("header", text);
-const wrapWithSpan = (text: String) => wrapWith("span", text);
-const wrapWithDiv = (text: String) => wrapWith("div", text);
-
+//w.isLike 1: like 0: dislike -1: none
 function makeHeader(w: wordDto) {
-  const word = wrapWithSpan(w.word);
-  const likeImage = wrapImage(w.isLike === "1" ? t_u_f : t_u);
-  const dislikeImage = wrapImage(w.isLike === "0" ? t_d_f : t_d);
-  const like = wrapWithSpan(w.like_amount + "&nbsp;" + likeImage);
-  const dislike = wrapWithSpan(w.dislike_amount + "&nbsp;" + dislikeImage);
-  const vote = wrapWithDiv(like + "&nbsp;&nbsp;" + dislike);
-  const flex = flex_between(word, vote);
-  return wrapWithHeader(flex);
+  const $word = document.createElement("span");
+  $word.innerText = w.word;
+
+  const $likeImage = document.createElement("img");
+  let tmp = w.isLike === 1 ? t_u_f : t_u;
+  $likeImage.setAttribute("src", tmp);
+  const $like = document.createElement("span");
+  $like.appendChild(document.createTextNode(w.like_amount + "\u00a0"));
+  $like.appendChild($likeImage);
+
+  const $dislikeImage = document.createElement("img");
+  tmp = w.isLike === 0 ? t_d_f : t_d;
+  $dislikeImage.setAttribute("src", tmp);
+  const $dislike = document.createElement("span");
+  $dislike.appendChild(document.createTextNode(w.dislike_amount + "\u00a0"));
+  $dislike.appendChild($dislikeImage);
+
+  const $div = document.createElement("div");
+  $div.appendChild($like);
+  $div.appendChild(document.createTextNode("\u00a0\u00a0"));
+  $div.appendChild($dislike);
+
+  const $flex = document.createElement("div");
+  $flex.setAttribute("style", "display: flex; justify-content: space-between;");
+
+  $flex.appendChild($word);
+  $flex.appendChild($div);
+
+  return [$flex, $like, $dislike];
+
+  // const word = wrapWithSpan(w.word);
+  // const likeImage = wrapImage(w.isLike === "1" ? t_u_f : t_u);
+  // const dislikeImage = wrapImage(w.isLike === "0" ? t_d_f : t_d);
+  // const like = wrapWithSpan(w.like_amount + "\u00a0" + likeImage);
+  // const dislike = wrapWithSpan(w.dislike_amount + "\u00a0" + dislikeImage);
+  // const vote = wrapWithDiv(like + "\u00a0\u00a0" + dislike);
+  // const flex = flex_between(word, vote);
+  // const $result = document.createElement("header");
+  // $result.innerHTML = flex;
+  // return $result;
 }
 
-async function getWords(keyword: String, page: Number, $div: HTMLElement) {
+async function getWords(keyword: string, page: Number, $div: HTMLElement) {
   const wordPerPage = 10;
   const $loading = document.createElement("div");
   $loading.setAttribute("aria-busy", "true");
@@ -43,12 +71,14 @@ async function addWordCards(words: wordDto[], $div: HTMLElement) {
   const $frag = new DocumentFragment();
   for (const w of words) {
     const $card = document.createElement("article");
-    $card.innerHTML = `${makeHeader(w)}
-        <body>
-          ${w.meaning}
-        </body>`;
+    const [$header, $like, $dislike] = makeHeader(w);
+    const $body = document.createElement("body");
+    $body.innerText = w.meaning;
+    $card.appendChild($header);
+    $card.appendChild($body);
     $frag.appendChild($card);
-    cards.push($card);
+    cards.set(w.word_id, w.isLike);
+    addClickListener($like, $dislike, w.word_id);
   }
   $div.appendChild($frag);
 }
@@ -58,3 +88,71 @@ async function removeAllCards($div: HTMLElement) {
 }
 
 export { getWords, addWordCards, removeAllCards };
+
+async function addClickListener(
+  $like: HTMLElement,
+  $dislike: HTMLElement,
+  word_id: number
+) {
+  $like.addEventListener("click", async () => {
+    const id = cards.get(word_id);
+    if (id === 1) {
+      $like.firstChild!.nodeValue =
+        (Number($like.firstChild?.nodeValue) - 1).toString() + "\u00a0";
+      cards.set(word_id, -1);
+      await ax.put("/removevote", { word_id, vote: "like" });
+    } else if (id === 0) {
+      $like.firstChild!.nodeValue =
+        (Number($like.firstChild?.nodeValue) + 1).toString() + "\u00a0";
+      $dislike.firstChild!.nodeValue =
+        (Number($dislike.firstChild?.nodeValue) - 1).toString() + "\u00a0";
+      cards.set(word_id, 1);
+      await ax.put("/vote", { word_id, vote: "like" });
+    } else {
+      $like.firstChild!.nodeValue =
+        (Number($like.firstChild?.nodeValue) + 1).toString() + "\u00a0";
+      cards.set(word_id, 1);
+      (await ax.put("/vote", { word_id, vote: "like" })) + "\u00a0";
+    }
+    setImage($like, $dislike, word_id);
+  });
+
+  $dislike.addEventListener("click", async () => {
+    const id = cards.get(word_id);
+    if (id === 1) {
+      $like.firstChild!.nodeValue =
+        (Number($like.firstChild?.nodeValue) - 1).toString() + "\u00a0";
+      $dislike.firstChild!.nodeValue =
+        (Number($dislike.firstChild?.nodeValue) + 1).toString() + "\u00a0";
+      cards.set(word_id, 0);
+      await ax.put("/vote", { word_id, vote: "dislike" });
+    } else if (id === 0) {
+      $dislike.firstChild!.nodeValue =
+        (Number($dislike.firstChild?.nodeValue) - 1).toString() + "\u00a0";
+      cards.set(word_id, -1);
+      await ax.put("/removevote", { word_id, vote: "dislike" });
+    } else {
+      $dislike.firstChild!.nodeValue =
+        (Number($dislike.firstChild?.nodeValue) + 1).toString() + "\u00a0";
+      cards.set(word_id, 0);
+      await ax.put("/vote", { word_id, vote: "dislike" });
+    }
+    setImage($like, $dislike, word_id);
+  });
+}
+
+function setImage($like: HTMLElement, $dislike: HTMLElement, word_id: number) {
+  const id = cards.get(word_id);
+  const $likeImage = $like.querySelector("img");
+  const $dislikeImage = $dislike.querySelector("img");
+  if (id === 1) {
+    $likeImage?.setAttribute("src", t_u_f);
+    $dislikeImage?.setAttribute("src", t_d);
+  } else if (id === 0) {
+    $likeImage?.setAttribute("src", t_u);
+    $dislikeImage?.setAttribute("src", t_d_f);
+  } else {
+    $likeImage?.setAttribute("src", t_u);
+    $dislikeImage?.setAttribute("src", t_d);
+  }
+}

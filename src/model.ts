@@ -1,7 +1,8 @@
 export interface wordDto {
-  word: String;
-  meaning: String;
-  like_amount: String;
-  dislike_amount: String;
-  isLike: String;
+  word: string;
+  meaning: string;
+  like_amount: number;
+  dislike_amount: number;
+  isLike: number;
+  word_id: number;
 }
