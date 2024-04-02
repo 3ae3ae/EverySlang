@@ -1,5 +1,6 @@
 import "./pico-main/css/pico.min.css";
 import { getWords, addWordCards, removeAllCards } from "./service";
+import DOMPurify from "dompurify";
 
 const $input: HTMLInputElement = document.querySelector(
   "#search input"
@@ -13,7 +14,7 @@ const $div = document.getElementById("cards");
 let page = 0;
 
 async function getAndAddWordCards(page: number) {
-  const data = await getWords($input.value, page, $div!);
+  const data = await getWords(DOMPurify.sanitize($input.value), page, $div!);
   addWordCards(data[0], $div!);
   if (data[1] === "end") return -1;
   return ++page;
@@ -37,8 +38,8 @@ window.addEventListener("scroll", async () => {
   let fullHeight = document.documentElement.scrollHeight;
   let myHeight =
     document.documentElement.scrollTop + document.documentElement.clientHeight;
-  let halfScreen = document.documentElement.clientHeight;
-  if (fullHeight <= myHeight + halfScreen) {
+  let oneThirdScreen = document.documentElement.clientHeight / 3;
+  if (fullHeight <= myHeight + oneThirdScreen) {
     if (page !== -1) {
       page = await getAndAddWordCards(page);
     }

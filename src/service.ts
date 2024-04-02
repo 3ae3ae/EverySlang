@@ -4,6 +4,7 @@ import t_u_f from "./thumb_up_FILL.svg";
 import t_u from "./thumb_up.svg";
 import t_d from "./thumb_down.svg";
 import t_d_f from "./thumb_down_FILL.svg";
+import DOMPurify from "dompurify";
 
 const BaseUrl = "http://localhost:3000";
 const ax = axios.create({ baseURL: BaseUrl });
@@ -80,7 +81,10 @@ async function createWord(
   $word: HTMLInputElement,
   $meaning: HTMLTextAreaElement
 ) {
-  await ax.post("/create", { word: $word.value, meaning: $meaning.value });
+  await ax.post("/create", {
+    word: DOMPurify.sanitize($word.value),
+    meaning: DOMPurify.sanitize($meaning.value),
+  });
   location.replace("index.html");
 }
 
