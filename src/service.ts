@@ -81,6 +81,21 @@ async function createWord(
   $word: HTMLInputElement,
   $meaning: HTMLTextAreaElement
 ) {
+  if ($word.value.length > 30) {
+    window.alert("단어는 30자 이내여아합니다.");
+    return;
+  } else if ($meaning.value.length > 100) {
+    window.alert("설명은 100자 이내여아합니다.");
+    return;
+  }
+  if ($word.value.length === 0) {
+    window.alert("내용을 입력해주세요.");
+    return;
+  } else if ($meaning.value.length === 0) {
+    window.alert("설명을 입력해주세요.");
+    return;
+  }
+
   await ax.post("/create", {
     word: DOMPurify.sanitize($word.value),
     meaning: DOMPurify.sanitize($meaning.value),
