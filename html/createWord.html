@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Every Slang</title>
+  </head>
+  <body>
+    <header></header>
+    <main class="container" id="main">
+      <a href="index.html" style="text-decoration: none">← 돌아가기</a>
+      <br />
+      <br />
+      <article>
+        단어를 작성하기 전 반드시
+        <a href="Content Guidelines.html" style="text-decoration: none"
+          >Every Slang Content Guideline</a
+        >을 읽어주세요.
+        <hr />
+        <small
+          >많은 사람들이 보기 좋게 작성해주세요. 많은 사람들이 즐길 수 있게
+          작성해주세요. <br />
+          일반적인 뜻을 적어주세요. 개인적인 농담이나 뜻을 적지 마세요.</small
+        >
+      </article>
+
+      <br />
+      <form id="createWord" method="post">
+        <fieldset>
+          <label>
+            Word
+            <input id="word" name="word" placeholder="Word" type="text" />
+          </label>
+
+          <label>
+            Meaning
+            <textarea
+              id="meaning"
+              name="meaning"
+              cols="30"
+              rows="9"
+              placeholder="Meaning"
+            ></textarea>
+          </label>
+        </fieldset>
+        <input type="submit" value="Submit" />
+      </form>
+    </main>
+    <footer></footer>
+    <script type="module" src="/src/createWord.ts"></script>
+  </body>
+</html>
