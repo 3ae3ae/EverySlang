@@ -1,1 +1,0 @@
-import"./pico.min-lSV7j4Bm.js";import{c as t}from"./service-B-1sCxzD.js";const n=document.getElementById("createWord"),o=document.getElementById("word"),m=document.getElementById("meaning");n.addEventListener("submit",async e=>{e.preventDefault(),await t(o,m)});
