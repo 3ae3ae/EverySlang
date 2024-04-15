@@ -41,6 +41,7 @@ $searchButton.addEventListener("click", async () => {
 
 window.addEventListener("scroll", async () => {
   if (canScrolling) {
+    canScrolling = false;
     let fullHeight = document.documentElement.scrollHeight;
     let myHeight =
       document.documentElement.scrollTop +
@@ -51,5 +52,6 @@ window.addEventListener("scroll", async () => {
         page = await getAndAddWordCards(page);
       }
     }
+    canScrolling = true;
   }
 });
