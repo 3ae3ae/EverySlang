@@ -2,6 +2,8 @@ import "./pico-main/css/pico.min.css";
 import { getWords, addWordCards, removeAllCards } from "./service";
 import DOMPurify from "dompurify";
 
+let canScrolling = true;
+
 const $input: HTMLInputElement = document.querySelector(
   "#search input"
 ) as HTMLInputElement;
@@ -29,19 +31,25 @@ $input?.addEventListener("keydown", async (e) => {
 });
 
 $searchButton.addEventListener("click", async () => {
+  canScrolling = false;
+  window.scrollTo({ top: 0 });
   removeAllCards($div!);
   page = 0;
   page = await getAndAddWordCards(page);
+  canScrolling = true;
 });
 
 window.addEventListener("scroll", async () => {
-  let fullHeight = document.documentElement.scrollHeight;
-  let myHeight =
-    document.documentElement.scrollTop + document.documentElement.clientHeight;
-  let oneThirdScreen = document.documentElement.clientHeight / 3;
-  if (fullHeight <= myHeight + oneThirdScreen) {
-    if (page !== -1) {
-      page = await getAndAddWordCards(page);
+  if (canScrolling) {
+    let fullHeight = document.documentElement.scrollHeight;
+    let myHeight =
+      document.documentElement.scrollTop +
+      document.documentElement.clientHeight;
+    let oneThirdScreen = document.documentElement.clientHeight / 3;
+    if (fullHeight <= myHeight + oneThirdScreen) {
+      if (page !== -1) {
+        page = await getAndAddWordCards(page);
+      }
     }
   }
 });
