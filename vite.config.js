@@ -3,6 +3,7 @@ import { defineConfig } from "vite";
 
 /** @type {import('vite').UserConfig} */
 export default defineConfig({
+  base: './',
   build: {
     rollupOptions: {
       input: {
