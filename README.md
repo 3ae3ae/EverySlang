@@ -40,7 +40,8 @@ npm run dev
 
 ## 라이브러리
 
-- [PICO CSS](https://picocss.com/), [Vite](https://vitejs.dev/)
+- [PICO CSS](https://picocss.com/)
+- [Vite](https://vitejs.dev/)
 - 파비콘: favicon.io
 
 ## 라이센스
