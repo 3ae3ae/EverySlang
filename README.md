@@ -13,7 +13,7 @@ https://everyslang.com
 
 #### 요구사항
 
-- git
+- Git
 - Node.js
 - 웹 브라우저
 
@@ -26,7 +26,7 @@ git clone https://github.com/your-username/EverySlang.git
 2. 의존성 패키지를 설치합니다.
 
 ```bash
-git cd EverySlang
+cd EverySlang
 npm i
 ```
 
