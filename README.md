@@ -1,21 +1,38 @@
-# EverySlang
+<p align="center">
+  <a href="" rel="noopener">
+ <img width=200px height=200px src="public\android-chrome-512x512.png" alt="logo"></a>
+</p>
+
+<h3 align="center">EverySlang</h3>
+
+<div align="center">
+
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
+
+</div>
+
+---
+
+## 🧐 About <a name = "about"></a>
 
 ![Screenshot](Screenshot.jpeg)
-EverySlang는 한국인을 위한 영어 slang 검색 사이트입니다. 영어 slang를 쉽게 찾고 이해할 수 있도록 돕습니다.
+EverySlang은 한국인을 위한 영어 slang 검색 사이트입니다. 영어 slang를 쉽게 찾고 이해할 수 있도록 돕습니다.
 
-## 설치 및 실행
+## 🏁 Getting Started <a name = "getting_started"></a>
 
-### 온라인
+### Online
 
 https://everyslang.com
 
-### 로컬
+### Local
 
-#### 요구사항
+#### Prerequisites
 
 - Git
 - Node.js
 - 웹 브라우저
+
+#### Installing
 
 1. 터미널에 아래 명령어를 입력하여 프로젝트를 클론합니다.
 
@@ -38,12 +55,13 @@ npm run dev
 
 4. 웹 브라우저에서 http://localhost:5173/ 에 접속합니다.
 
-## 라이브러리
+## ⛏️ Built Using <a name = "built_using"></a>
 
+- [NodeJs](https://nodejs.org/en/)
 - [PICO CSS](https://picocss.com/)
 - [Vite](https://vitejs.dev/)
-- 파비콘: favicon.io
+- favicon.io
 
-## 라이센스
+## ✍️ Authors <a name = "authors"></a>
 
-이 프로젝트는 MIT 라이센스를 따릅니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참고하세요.
+- [@3ae3ae](https://github.com/3ae3ae)
