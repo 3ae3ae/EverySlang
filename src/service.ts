@@ -127,60 +127,60 @@ async function addClickListener(
   word_id: number
 ) {
   $like.addEventListener("click", async () => {
-    const id = cards.get(word_id);
-    if (id === 1) {
+    const vote = cards.get(word_id); // vote가 1이면 like, 0이면 dislike, -1이면 기본 상태
+    if (vote === 1) {
       $like.firstChild!.nodeValue =
         (Number($like.firstChild?.nodeValue) - 1).toString() + "\u00a0";
       cards.set(word_id, -1);
-      await ax.put("/removevote", { word_id, vote: "like" });
-    } else if (id === 0) {
+      ax.put("/removevote", { word_id, vote: "like" });
+    } else if (vote === 0) {
       $like.firstChild!.nodeValue =
         (Number($like.firstChild?.nodeValue) + 1).toString() + "\u00a0";
       $dislike.firstChild!.nodeValue =
         (Number($dislike.firstChild?.nodeValue) - 1).toString() + "\u00a0";
       cards.set(word_id, 1);
-      await ax.put("/vote", { word_id, vote: "like" });
+      ax.put("/vote", { word_id, vote: "like" });
     } else {
       $like.firstChild!.nodeValue =
         (Number($like.firstChild?.nodeValue) + 1).toString() + "\u00a0";
       cards.set(word_id, 1);
-      (await ax.put("/vote", { word_id, vote: "like" })) + "\u00a0";
+      ax.put("/vote", { word_id, vote: "like" });
     }
     setImage($like, $dislike, word_id);
   });
 
   $dislike.addEventListener("click", async () => {
-    const id = cards.get(word_id);
-    if (id === 1) {
+    const vote = cards.get(word_id);
+    if (vote === 1) {
       $like.firstChild!.nodeValue =
         (Number($like.firstChild?.nodeValue) - 1).toString() + "\u00a0";
       $dislike.firstChild!.nodeValue =
         (Number($dislike.firstChild?.nodeValue) + 1).toString() + "\u00a0";
       cards.set(word_id, 0);
-      await ax.put("/vote", { word_id, vote: "dislike" });
-    } else if (id === 0) {
+      ax.put("/vote", { word_id, vote: "dislike" });
+    } else if (vote === 0) {
       $dislike.firstChild!.nodeValue =
         (Number($dislike.firstChild?.nodeValue) - 1).toString() + "\u00a0";
       cards.set(word_id, -1);
-      await ax.put("/removevote", { word_id, vote: "dislike" });
+      ax.put("/removevote", { word_id, vote: "dislike" });
     } else {
       $dislike.firstChild!.nodeValue =
         (Number($dislike.firstChild?.nodeValue) + 1).toString() + "\u00a0";
       cards.set(word_id, 0);
-      await ax.put("/vote", { word_id, vote: "dislike" });
+      ax.put("/vote", { word_id, vote: "dislike" });
     }
     setImage($like, $dislike, word_id);
   });
 }
 
 function setImage($like: HTMLElement, $dislike: HTMLElement, word_id: number) {
-  const id = cards.get(word_id);
+  const vote = cards.get(word_id);
   const $likeImage = $like.querySelector("img");
   const $dislikeImage = $dislike.querySelector("img");
-  if (id === 1) {
+  if (vote === 1) {
     $likeImage?.setAttribute("src", t_u_f);
     $dislikeImage?.setAttribute("src", t_d);
-  } else if (id === 0) {
+  } else if (vote === 0) {
     $likeImage?.setAttribute("src", t_u);
     $dislikeImage?.setAttribute("src", t_d_f);
   } else {
