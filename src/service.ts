@@ -100,16 +100,7 @@ async function createWord($form: HTMLFormElement) {
     window.alert("XSS 스크립트가 발견되었습니다.");
     return;
   }
-  await axios.post(
-    "https://everyslangapiserver.com/create",
-    new FormData($form),
-    {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    }
-  );
-  location.replace("index.html");
+  $form.submit();
 }
 
 export { getWords, addWordCards, removeAllCards, createWord };
