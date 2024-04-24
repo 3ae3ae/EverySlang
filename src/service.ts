@@ -93,10 +93,11 @@ async function removeAllCards($div: HTMLElement) {
   $div.replaceChildren();
 }
 
-async function createWord(
-  $word: HTMLInputElement,
-  $meaning: HTMLTextAreaElement
-) {
+const checkXSS = (input: string) => input !== DOMPurify.sanitize(input);
+
+async function createWord($form: HTMLFormElement) {
+  const $word = $form["word"];
+  const $meaning = $form["meaning"];
   if ($word.value.length > 30) {
     window.alert("단어는 30자 이내여아합니다.");
     return;
@@ -111,11 +112,19 @@ async function createWord(
     window.alert("설명을 입력해주세요.");
     return;
   }
-
-  await ax.post("/create", {
-    word: DOMPurify.sanitize($word.value),
-    meaning: DOMPurify.sanitize($meaning.value),
-  });
+  if (checkXSS($word.value) || checkXSS($meaning.value)) {
+    window.alert("XSS 스크립트가 발견되었습니다.");
+    return;
+  }
+  await axios.post(
+    "https://everyslangapiserver.com/create",
+    new FormData($form),
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
   location.replace("index.html");
 }
 
