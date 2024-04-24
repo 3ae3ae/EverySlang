@@ -1,5 +1,5 @@
 import "./pico-main/css/pico.min.css";
-import { getWords, addWordCards, removeAllCards, addAds } from "./service";
+import { getWords, addWordCards, removeAllCards } from "./service";
 import DOMPurify from "dompurify";
 
 let canScrolling = true;
@@ -49,7 +49,6 @@ window.addEventListener("scroll", async () => {
     let oneThirdScreen = document.documentElement.clientHeight / 3;
     if (fullHeight <= myHeight + oneThirdScreen) {
       if (page !== -1) {
-        if (page === 1) await addAds($div!);
         page = await getAndAddWordCards(page);
       }
     }
