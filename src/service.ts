@@ -6,7 +6,7 @@ import t_d from "./thumb_down.svg";
 import t_d_f from "./thumb_down_FILL.svg";
 import DOMPurify from "dompurify";
 
-const BaseUrl = "https://everyslangapiserver.com";
+const BaseUrl = import.meta.env.VITE_SERVER;
 const ax = axios.create({ baseURL: BaseUrl });
 const cards: Map<number, number> = new Map();
 

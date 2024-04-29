@@ -4,6 +4,7 @@ import { defineConfig } from "vite";
 /** @type {import('vite').UserConfig} */
 export default defineConfig({
   base: "./",
+  envDir: __dirname,
   build: {
     rollupOptions: {
       input: {
