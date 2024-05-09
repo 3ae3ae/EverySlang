@@ -1,4 +1,3 @@
-import "./pico-main/css/pico.min.css";
 import { getWords, addWordCards, removeAllCards } from "./service";
 import DOMPurify from "dompurify";
 

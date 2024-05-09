@@ -1,4 +1,3 @@
-import "./pico-main/css/pico.min.css";
 import { createWord } from "./service";
 const $form: HTMLFormElement = document.getElementById(
   "createWord"
