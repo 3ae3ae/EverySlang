@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" class="">
+<html lang="ko" class="modal-is-opening modal-is-closing">
   <head>
     <meta charset="UTF-8" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -11,7 +11,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
-    <title>Nickname</title>
+    <title>Set Nickname</title>
   </head>
   <body>
     <header>
@@ -28,11 +28,35 @@
         </ul>
       </nav>
     </header>
+    <dialog>
+      <article>
+        <h2></h2>
+        <p></p>
+        <footer>
+          <button className="secondary" id="cancel">취소</button>
+          <button id="confirm">확인</button>
+        </footer>
+      </article>
+    </dialog>
     <main class="container">
-      <form action="%VITE_SERVER%/nickname" method="post"></form>
       <span>닉네임을 입력하세요: </span>
-      <input type="text" name="nickname" />
-      <input type="submit" />
+      <fieldset role="group">
+        <input
+          type="text"
+          name="nickname"
+          id="nickname"
+          placeholder="username"
+        />
+        <button
+          class="secondary"
+          style="white-space: nowrap"
+          id="duplication check"
+        >
+          <span> 중복 확인 </span>
+        </button>
+      </fieldset>
+      <input type="submit" id="submit" disabled />
     </main>
+    <script type="module" src="/src/nickname.ts"></script>
   </body>
 </html>

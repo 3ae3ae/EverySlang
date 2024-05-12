@@ -1,10 +1,10 @@
 FROM node
 
+EXPOSE 4173
+
 COPY . .
 
 RUN npm i
-
-EXPOSE 4173
 
 RUN npx vite build --mode development
 

@@ -10,6 +10,15 @@ const BaseUrl = import.meta.env.VITE_SERVER;
 const ax = axios.create({ baseURL: BaseUrl });
 const cards: Map<number, number> = new Map();
 
+export {
+  getWords,
+  addWordCards,
+  removeAllCards,
+  createWord,
+  validateNickname,
+  registerMember,
+  showDialog,
+};
 //w.isLike 1: like 0: dislike -1: none
 function makeHeader(w: wordDto) {
   const $word = document.createElement("span");
@@ -103,8 +112,6 @@ async function createWord($form: HTMLFormElement) {
   $form.submit();
 }
 
-export { getWords, addWordCards, removeAllCards, createWord };
-
 async function addClickListener(
   $like: HTMLElement,
   $dislike: HTMLElement,
@@ -171,4 +178,41 @@ function setImage($like: HTMLElement, $dislike: HTMLElement, word_id: number) {
     $likeImage?.setAttribute("src", t_u);
     $dislikeImage?.setAttribute("src", t_d);
   }
+}
+
+async function validateNickname(name: string) {
+  if (checkXSS(name)) return false;
+  const res = await ax.get("/validateNickname", { params: { name } });
+  if (res.data) return true;
+  else return false;
+}
+
+async function registerMember(name: string) {
+  const result = await ax.post("/registerMember", { name });
+  if (result.data === "OK") {
+    return true;
+  } else return false;
+}
+
+async function showDialog(ok: boolean, $d: HTMLDialogElement) {
+  const $title = $d.getElementsByTagName("h2")[0] as HTMLHeadingElement;
+  const $content = $d.getElementsByTagName("p")[0] as HTMLParagraphElement;
+  const $cancelButton = $d.getElementsByTagName(
+    "button"
+  )[0] as HTMLButtonElement;
+  const $comfirmButton = $d.getElementsByTagName(
+    "button"
+  )[1] as HTMLButtonElement;
+  if (ok) {
+    $title.textContent = "회원가입이 완료되었습니다.";
+    $content.textContent = "메인 페이지로 이동합니다.";
+    $cancelButton.setAttribute("hidden", "true");
+    $comfirmButton.setAttribute("hidden", "false");
+  } else {
+    $title.textContent = "회원 가입에 실패하였습니다.";
+    $content.textContent = "메인 페이지로 이동합니다.";
+    $cancelButton.setAttribute("hidden", "true");
+    $comfirmButton.setAttribute("hidden", "false");
+  }
+  $d.setAttribute("open", "true");
 }
