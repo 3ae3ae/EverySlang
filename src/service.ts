@@ -11,6 +11,7 @@ const ax = axios.create({ baseURL: BaseUrl });
 const cards: Map<number, number> = new Map();
 
 export {
+  login,
   getWords,
   addWordCards,
   removeAllCards,
@@ -188,7 +189,12 @@ async function validateNickname(name: string) {
 }
 
 async function registerMember(name: string) {
-  const result = await ax.post("/registerMember", { name });
+  const jwt = localStorage.getItem("JWT");
+  const result = await ax.post(
+    "/registerMember",
+    { name },
+    { headers: { Authorization: jwt } }
+  );
   if (result.data === "OK") {
     return true;
   } else return false;
@@ -215,4 +221,16 @@ async function showDialog(ok: boolean, $d: HTMLDialogElement) {
     $comfirmButton.setAttribute("hidden", "false");
   }
   $d.setAttribute("open", "true");
+}
+
+async function login($img: HTMLImageElement) {
+  const params = {
+    client_id: import.meta.env.VITE_REST_KEY,
+    redirect_uri: import.meta.env.VITE_SERVER + "/login",
+    response_type: "code",
+  };
+
+  axios.get("https://kauth.kakao.com/oauth/authorize", {
+    params,
+  });
 }

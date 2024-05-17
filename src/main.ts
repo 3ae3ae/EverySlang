@@ -11,6 +11,15 @@ const $searchButton: HTMLButtonElement = document.querySelector(
   "#search button"
 ) as HTMLButtonElement;
 
+const $login: HTMLAnchorElement = document.getElementById(
+  "login"
+) as HTMLAnchorElement;
+
+if (localStorage.getItem("JWT") !== null) {
+  $login.textContent = "마이 페이지";
+  $login.setAttribute("href", "#");
+}
+
 const $div = document.getElementById("cards");
 let page = 0;
 

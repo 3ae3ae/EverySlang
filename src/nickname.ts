@@ -11,12 +11,7 @@ const $buttonContent = $duplicationButton.getElementsByTagName(
 )[0] as HTMLSpanElement;
 const $submit = document.getElementById("submit") as HTMLInputElement;
 const $dialog = document.getElementsByTagName("dialog")[0] as HTMLDialogElement;
-// const $dialogTitle = $dialog.getElementsByTagName(
-//   "h2"
-// )[0] as HTMLHeadingElement;
-// const $dialogContent = $dialog.getElementsByTagName(
-//   "p"
-// )[0] as HTMLParagraphElement;
+
 const $dialogConfirmButton = document.getElementById(
   "confirm"
 ) as HTMLButtonElement;
