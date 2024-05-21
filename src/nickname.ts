@@ -1,4 +1,9 @@
-import { registerMember, validateNickname, showDialog } from "./service";
+import {
+  registerMember,
+  validateNickname,
+  showDialog,
+  closeDialog,
+} from "./service";
 
 const $duplicationButton: HTMLButtonElement = document.getElementById(
   "duplication check"
@@ -12,11 +17,10 @@ const $buttonContent = $duplicationButton.getElementsByTagName(
 const $submit = document.getElementById("submit") as HTMLInputElement;
 const $dialog = document.getElementsByTagName("dialog")[0] as HTMLDialogElement;
 
+const $document = document.documentElement;
+
 const $dialogConfirmButton = document.getElementById(
   "confirm"
-) as HTMLButtonElement;
-const $dialogCancelButton = document.getElementById(
-  "cancel"
 ) as HTMLButtonElement;
 
 $duplicationButton?.addEventListener("click", async (e) => {
@@ -44,17 +48,17 @@ $nickname.addEventListener("input", (_) => {
 $submit.addEventListener("click", async (e) => {
   e.preventDefault();
   if (await registerMember($nickname.value)) {
-    showDialog(true, $dialog);
+    showDialog(true, $dialog, $document);
   } else {
-    showDialog(false, $dialog);
+    showDialog(false, $dialog, $document);
   }
 });
 
-$dialogCancelButton.addEventListener("click", async (e) => {
-  e.preventDefault();
-  $dialog.setAttribute("open", "false");
-});
-$dialogConfirmButton.addEventListener("click", async (e) => {
-  e.preventDefault();
-  $dialog.setAttribute("open", "false");
-});
+// $dialogCancelButton.addEventListener("click", async (e) => {
+//   e.preventDefault();
+//   $dialog.setAttribute("open", "false");
+// });
+// $dialogConfirmButton.addEventListener("click", async (e) => {
+//   e.preventDefault();
+//   $dialog.setAttribute("open", "false");
+// });

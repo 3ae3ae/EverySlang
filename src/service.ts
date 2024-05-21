@@ -7,7 +7,7 @@ import t_d_f from "./thumb_down_FILL.svg";
 import DOMPurify from "dompurify";
 
 const BaseUrl = import.meta.env.VITE_SERVER;
-const ax = axios.create({ baseURL: BaseUrl });
+const ax = axios.create({ baseURL: BaseUrl, withCredentials: true });
 const cards: Map<number, number> = new Map();
 
 export {
@@ -19,6 +19,7 @@ export {
   validateNickname,
   registerMember,
   showDialog,
+  closeDialog,
 };
 //w.isLike 1: like 0: dislike -1: none
 function makeHeader(w: wordDto) {
@@ -189,38 +190,44 @@ async function validateNickname(name: string) {
 }
 
 async function registerMember(name: string) {
-  const jwt = localStorage.getItem("JWT");
-  const result = await ax.post(
-    "/registerMember",
-    { name },
-    { headers: { Authorization: jwt } }
-  );
+  const result = await ax.post("/registerMember", { name });
   if (result.data === "OK") {
     return true;
   } else return false;
 }
 
-async function showDialog(ok: boolean, $d: HTMLDialogElement) {
-  const $title = $d.getElementsByTagName("h2")[0] as HTMLHeadingElement;
-  const $content = $d.getElementsByTagName("p")[0] as HTMLParagraphElement;
-  const $cancelButton = $d.getElementsByTagName(
-    "button"
-  )[0] as HTMLButtonElement;
-  const $comfirmButton = $d.getElementsByTagName(
+async function showDialog(
+  ok: boolean,
+  $dialog: HTMLDialogElement,
+  $document: HTMLElement
+) {
+  const $title = $dialog.getElementsByTagName("h2")[0] as HTMLHeadingElement;
+  const $content = $dialog.getElementsByTagName("p")[0] as HTMLParagraphElement;
+  const $comfirmButton = $dialog.getElementsByTagName(
     "button"
   )[1] as HTMLButtonElement;
   if (ok) {
     $title.textContent = "회원가입이 완료되었습니다.";
     $content.textContent = "메인 페이지로 이동합니다.";
-    $cancelButton.setAttribute("hidden", "true");
     $comfirmButton.setAttribute("hidden", "false");
   } else {
     $title.textContent = "회원 가입에 실패하였습니다.";
     $content.textContent = "메인 페이지로 이동합니다.";
-    $cancelButton.setAttribute("hidden", "true");
     $comfirmButton.setAttribute("hidden", "false");
   }
-  $d.setAttribute("open", "true");
+  $document.classList.add("modal-is-open", "modal-is-opening");
+  setTimeout(() => {
+    $document.classList.remove("modal-is-opening");
+  }, 500);
+  $dialog.showModal();
+}
+
+async function closeDialog($dialog: HTMLDialogElement, $document: HTMLElement) {
+  $document.classList.add("modal-is-closing");
+  setTimeout(() => {
+    $document.classList.remove("modal-is-closing", "modal-is-open");
+  }, 500);
+  $dialog.close();
 }
 
 async function login($img: HTMLImageElement) {
