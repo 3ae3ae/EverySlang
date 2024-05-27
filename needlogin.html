@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" class="modal-is-open modal-is-opening">
   <head>
     <meta charset="UTF-8" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -11,19 +11,14 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
-    <title>Set Nickname</title>
+    <title>Need Login</title>
   </head>
   <body>
     <header>
       <nav class="container">
         <ul>
           <li>
-            <h1>Nickname</h1>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <a href="index.html">← 돌아가기</a>
+            <h1>Error</h1>
           </li>
         </ul>
       </nav>
@@ -33,32 +28,14 @@
         <header>
           <button aria-label="Close" rel="prev" id="close"></button>
         </header>
-        <h2></h2>
-        <p></p>
+        <h2>로그인이 필요한 서비스입니다.</h2>
+        <p>로그인 페이지로 이동합니다.</p>
         <footer>
           <button id="confirm">확인</button>
         </footer>
       </article>
     </dialog>
-    <main class="container">
-      <span>닉네임을 입력하세요: </span>
-      <fieldset role="group">
-        <input
-          type="text"
-          name="nickname"
-          id="nickname"
-          placeholder="username"
-        />
-        <button
-          class="secondary"
-          style="white-space: nowrap"
-          id="duplication check"
-        >
-          <span> 중복 확인 </span>
-        </button>
-      </fieldset>
-      <input type="submit" id="submit" disabled />
-    </main>
-    <script type="module" src="/src/nickname.ts"></script>
+    <main class="container"></main>
+    <script type="module" src="/src/needlogin.ts"></script>
   </body>
 </html>

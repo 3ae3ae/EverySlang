@@ -5,4 +5,6 @@ export interface wordDto {
   dislike_amount: number;
   isLike: number;
   word_id: number;
+  member_id: string;
+  nickname: string;
 }

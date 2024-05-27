@@ -13,6 +13,7 @@ export default defineConfig({
         nested2: resolve(__dirname, "createWord.html"),
         nested3: resolve(__dirname, "login.html"),
         nested4: resolve(__dirname, "nickname.html"),
+        nested5: resolve(__dirname, "needlogin.html"),
       },
     },
   },

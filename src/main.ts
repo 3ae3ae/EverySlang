@@ -1,4 +1,4 @@
-import { getWords, addWordCards, removeAllCards } from "./service";
+import { getWords, addWordCards, removeAllCards, getNickname } from "./service";
 import DOMPurify from "dompurify";
 
 let canScrolling = true;
@@ -14,6 +14,8 @@ const $searchButton: HTMLButtonElement = document.querySelector(
 const $login: HTMLAnchorElement = document.getElementById(
   "login"
 ) as HTMLAnchorElement;
+
+getNickname($login);
 
 const $div = document.getElementById("cards");
 let page = 0;

@@ -20,7 +20,15 @@ export {
   registerMember,
   showDialog,
   closeDialog,
+  getNickname,
 };
+async function getNickname($login: HTMLAnchorElement) {
+  const { data } = await ax.get("/nickname");
+  if (data !== "No Name") {
+    $login.textContent = data;
+    $login.href = "#";
+  }
+}
 //w.isLike 1: like 0: dislike -1: none
 function makeHeader(w: wordDto) {
   const $word = document.createElement("span");
@@ -60,6 +68,7 @@ async function getWords(keyword: string, page: Number, $div: HTMLElement) {
   $loading.setAttribute("aria-busy", "true");
   $div.appendChild($loading);
   const { data } = await ax.get("/search", { params: { keyword, page } });
+  console.log([...data]);
   $div.removeChild($loading);
   if ([...data].length < wordPerPage) {
     return [data, "end"];
@@ -74,9 +83,12 @@ async function addWordCards(words: wordDto[], $div: HTMLElement) {
     const $card = document.createElement("article");
     const [$header, $like, $dislike] = makeHeader(w);
     const $body = document.createElement("body");
+    const $member = document.createElement("footer");
+    $member.textContent = w.nickname;
     $body.innerText = w.meaning;
     $card.appendChild($header);
     $card.appendChild($body);
+    $card.appendChild($member);
     $frag.appendChild($card);
     cards.set(w.word_id, w.isLike);
     addClickListener($like, $dislike, w.word_id);
@@ -191,6 +203,7 @@ async function validateNickname(name: string) {
 
 async function registerMember(name: string) {
   const result = await ax.post("/registerMember", { name });
+  console.log(result.data);
   if (result.data === "OK") {
     return true;
   } else return false;
@@ -209,11 +222,11 @@ async function showDialog(
   if (ok) {
     $title.textContent = "회원가입이 완료되었습니다.";
     $content.textContent = "메인 페이지로 이동합니다.";
-    $comfirmButton.setAttribute("hidden", "false");
+    $comfirmButton.hidden = false;
   } else {
     $title.textContent = "회원 가입에 실패하였습니다.";
     $content.textContent = "메인 페이지로 이동합니다.";
-    $comfirmButton.setAttribute("hidden", "false");
+    $comfirmButton.hidden = false;
   }
   $document.classList.add("modal-is-open", "modal-is-opening");
   setTimeout(() => {
@@ -222,12 +235,17 @@ async function showDialog(
   $dialog.showModal();
 }
 
-async function closeDialog($dialog: HTMLDialogElement, $document: HTMLElement) {
+async function closeDialog(
+  $dialog: HTMLDialogElement,
+  $document: HTMLElement,
+  location: string
+) {
   $document.classList.add("modal-is-closing");
   setTimeout(() => {
     $document.classList.remove("modal-is-closing", "modal-is-open");
   }, 500);
   $dialog.close();
+  document.location.href = location;
 }
 
 async function login($img: HTMLImageElement) {

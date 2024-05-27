@@ -16,12 +16,21 @@ const $buttonContent = $duplicationButton.getElementsByTagName(
 )[0] as HTMLSpanElement;
 const $submit = document.getElementById("submit") as HTMLInputElement;
 const $dialog = document.getElementsByTagName("dialog")[0] as HTMLDialogElement;
+const $close = document.getElementById("close") as HTMLButtonElement;
 
 const $document = document.documentElement;
 
 const $dialogConfirmButton = document.getElementById(
   "confirm"
 ) as HTMLButtonElement;
+
+$close.addEventListener("click", (e) => {
+  closeDialog($dialog, $document, "index.html");
+});
+
+$dialogConfirmButton.addEventListener("click", (e) => {
+  closeDialog($dialog, $document, "index.html");
+});
 
 $duplicationButton?.addEventListener("click", async (e) => {
   e.preventDefault();
