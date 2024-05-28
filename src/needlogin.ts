@@ -9,6 +9,8 @@ const $dialogConfirmButton = document.getElementById(
   "confirm"
 ) as HTMLButtonElement;
 
+$dialog.showModal();
+
 $close.addEventListener("click", (_) => {
   closeDialog($dialog, $document, "login.html");
 });
