@@ -248,7 +248,7 @@ async function closeDialog(
   document.location.href = location;
 }
 
-async function login($img: HTMLImageElement) {
+async function login() {
   const params = {
     client_id: import.meta.env.VITE_REST_KEY,
     redirect_uri: import.meta.env.VITE_SERVER + "/login",

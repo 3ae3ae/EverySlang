@@ -24,11 +24,11 @@ const $dialogConfirmButton = document.getElementById(
   "confirm"
 ) as HTMLButtonElement;
 
-$close.addEventListener("click", (e) => {
+$close.addEventListener("click", (_) => {
   closeDialog($dialog, $document, "index.html");
 });
 
-$dialogConfirmButton.addEventListener("click", (e) => {
+$dialogConfirmButton.addEventListener("click", (_) => {
   closeDialog($dialog, $document, "index.html");
 });
 
