@@ -27,9 +27,22 @@ async function getAndAddWordCards(page: number) {
   return ++page;
 }
 
+async function render() {
+  const path = window.location.pathname;
+  removeAllCards($div!);
+  $input.value = path.slice(1);
+  page = 0;
+  page = await getAndAddWordCards(page);
+}
+
+window.addEventListener("popstate", async (_) => {
+  render();
+});
+
 $input?.addEventListener("keydown", async (e) => {
   if (e.key === "Enter") {
     removeAllCards($div!);
+    history.pushState(null, "", "/" + $input.value);
     page = 0;
     page = await getAndAddWordCards(page);
   }
@@ -39,6 +52,7 @@ $searchButton.addEventListener("click", async () => {
   canScrolling = false;
   window.scrollTo({ top: 0 });
   removeAllCards($div!);
+  history.pushState(null, "", "/" + $input.value);
   page = 0;
   page = await getAndAddWordCards(page);
   canScrolling = true;
@@ -60,3 +74,5 @@ window.addEventListener("scroll", async () => {
     canScrolling = true;
   }
 });
+
+render();
