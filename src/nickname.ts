@@ -32,6 +32,12 @@ $dialogConfirmButton.addEventListener("click", (_) => {
   closeDialog($dialog, $document, "index.html");
 });
 
+const limit = (name: string) => /[a-z\d]{3,10}/g.test(name);
+
+$document.addEventListener("keydown", (_) => {
+  $duplicationButton.disabled = !limit($nickname.value);
+});
+
 $duplicationButton?.addEventListener("click", async (e) => {
   e.preventDefault();
   const name = $nickname.value;
