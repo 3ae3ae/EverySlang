@@ -1,5 +1,5 @@
 import axios from "axios";
-import { wordDto } from "./model";
+import { wordDto, elementOption } from "./model";
 import t_u_f from "./thumb_up_FILL.svg";
 import t_u from "./thumb_up.svg";
 import t_d from "./thumb_down.svg";
@@ -11,6 +11,7 @@ const ax = axios.create({ baseURL: BaseUrl, withCredentials: true });
 const cards: Map<number, number> = new Map();
 
 export {
+  getProfile,
   login,
   getWords,
   addWordCards,
@@ -22,11 +23,79 @@ export {
   closeDialog,
   getNickname,
 };
+
+async function getProfile(
+  $like: HTMLSpanElement,
+  $dislike: HTMLSpanElement,
+  $words: HTMLSpanElement,
+  $message: HTMLSpanElement
+) {
+  const res = await ax.get("/profile");
+  const ret = res.data;
+  $like.textContent = ret.like;
+  $dislike.textContent = ret.dislike;
+  $words.textContent = ret.words;
+  $message.textContent = ret.message;
+}
+
+const makeElement = (name: string, option?: elementOption) => {
+  const $e = document.createElement(name);
+  if (!option) return $e;
+  if (option.textContent) $e.textContent = option.textContent;
+  if (option.child)
+    if (option.child instanceof Node) $e.appendChild(option.child);
+    else $e.append(...option.child);
+  if (option.attribute && option.value) {
+    if (
+      typeof option.attribute === "string" &&
+      typeof option.value === "string"
+    ) {
+      option.attribute = [option.attribute];
+      option.value = [option.value];
+    }
+    for (let i = 0; i < option.attribute.length; ++i)
+      $e.setAttribute(option.attribute[i], option.value[i]);
+  }
+  if (option.class) {
+    if (typeof option.class === "string") option.class = [option.class];
+    for (const c of option.class) {
+      $e.classList.add(c);
+    }
+  }
+  return $e;
+};
+
 async function getNickname($login: HTMLAnchorElement) {
   const { data } = await ax.get("/nickname");
+  console.log(data);
   if (data !== "No Name") {
-    $login.textContent = data;
-    $login.href = "#";
+    const $details = makeElement("details", { class: "dropdown" });
+    $details.appendChild(makeElement("summary", { textContent: data }));
+    const $ul = $details.appendChild(makeElement("ul"));
+    $ul.append(
+      makeElement("li", {
+        child: makeElement("a", {
+          attribute: "href",
+          value: "#",
+          textContent: "프로필 페이지",
+        }),
+      }),
+      makeElement("li", {
+        child: makeElement("a", {
+          attribute: "href",
+          value: "#",
+          textContent: "닉네임 변경",
+        }),
+      }),
+      makeElement("li", {
+        child: makeElement("a", {
+          attribute: "href",
+          value: "#",
+          textContent: "회원 탈퇴",
+        }),
+      })
+    );
+    $login.parentNode?.replaceChild($details, $login);
   }
 }
 //w.isLike 1: like 0: dislike -1: none

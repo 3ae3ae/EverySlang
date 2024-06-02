@@ -11,7 +11,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
     />
-    <title>Every Slang</title>
+    <title>Profile</title>
   </head>
   <body>
     <header></header>
@@ -22,11 +22,10 @@
             <h1>Every Slang</h1>
           </li>
         </ul>
-
         <ul>
           <li>
             <a href="login.html" style="text-decoration: none" id="login"
-              >로그인</a
+              >undefined</a
             >
           </li>
           <li>
@@ -39,13 +38,25 @@
           </li>
         </ul>
       </nav>
-      <fieldset role="search" id="search">
-        <input type="search" />
-        <button>search</button>
-      </fieldset>
-      <div id="cards" aria-busy="false"></div>
+      <h1><span></span></h1>
+      <div>
+        <span>프로필 메시지</span>
+        <span id="message"></span>
+      </div>
+      <div style="display: flex; justify-content: space-between">
+        <span>받은 좋아요: </span>
+        <span id="like"></span>
+      </div>
+      <div style="display: flex; justify-content: space-between">
+        <span>받은 싫어요: </span>
+        <span id="dislike"></span>
+      </div>
+      <div style="display: flex; justify-content: space-between">
+        <span>추가한 단어 목록: </span>
+        <span id="words"></span>
+      </div>
     </main>
     <footer></footer>
-    <script type="module" src="/src/main.ts"></script>
+    <script type="module" src="/src/profile.ts"></script>
   </body>
 </html>

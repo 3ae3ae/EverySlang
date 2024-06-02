@@ -8,3 +8,11 @@ export interface wordDto {
   member_id: string;
   nickname: string;
 }
+
+export interface elementOption {
+  attribute?: string | string[];
+  textContent?: string;
+  value?: string | string[];
+  child?: Node | Node[];
+  class?: string | string[];
+}

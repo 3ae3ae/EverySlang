@@ -14,6 +14,7 @@ export default defineConfig({
         nested3: resolve(__dirname, "login.html"),
         nested4: resolve(__dirname, "nickname.html"),
         nested5: resolve(__dirname, "needlogin.html"),
+        nested6: resolve(__dirname, "profile.html"),
       },
     },
   },
