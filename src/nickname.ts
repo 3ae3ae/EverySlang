@@ -1,9 +1,6 @@
-import {
-  registerMember,
-  validateNickname,
-  showDialog,
-  closeDialog,
-} from "./service";
+import { registerMember, validateNickname } from "./service";
+import { Dialog } from "./dialog";
+import { cleanURL } from "./utils";
 
 const $duplicationButton: HTMLButtonElement = document.getElementById(
   "duplication check"
@@ -15,26 +12,43 @@ const $buttonContent = $duplicationButton.getElementsByTagName(
   "span"
 )[0] as HTMLSpanElement;
 const $submit = document.getElementById("submit") as HTMLInputElement;
-const $dialog = document.getElementsByTagName("dialog")[0] as HTMLDialogElement;
-const $close = document.getElementById("close") as HTMLButtonElement;
 
 const $document = document.documentElement;
 
-const $dialogConfirmButton = document.getElementById(
-  "confirm"
-) as HTMLButtonElement;
+const limit = (name: string) => /^[a-z\d]{3,10}$/g.test(name);
 
-$close.addEventListener("click", (_) => {
-  closeDialog($dialog, $document, "index.html");
-});
-
-$dialogConfirmButton.addEventListener("click", (_) => {
-  closeDialog($dialog, $document, "index.html");
-});
-
-const limit = (name: string) => /[a-z\d]{3,10}/g.test(name);
+const $trueDialog = new Dialog(
+  () => {
+    window.location.href = "index.html";
+  },
+  {
+    hasCancel: false,
+    content: "메인 페이지로 이동합니다.",
+    title: "회원가입이 완료되었습니다.",
+  },
+  () => {
+    window.location.href = "index.html";
+  }
+);
+const $falseDialog = new Dialog(
+  () => {
+    window.location.href = "index.html";
+  },
+  {
+    hasCancel: false,
+    content: "메인 페이지로 이동합니다.",
+    title: "회원가입에 실패하였습니다.",
+  },
+  () => {
+    window.location.href = "index.html";
+  }
+);
 
 $document.addEventListener("keydown", (_) => {
+  $duplicationButton.disabled = !limit($nickname.value);
+});
+
+$document.addEventListener("click", (_) => {
   $duplicationButton.disabled = !limit($nickname.value);
 });
 
@@ -63,17 +77,10 @@ $nickname.addEventListener("input", (_) => {
 $submit.addEventListener("click", async (e) => {
   e.preventDefault();
   if (await registerMember($nickname.value)) {
-    showDialog(true, $dialog, $document);
+    $trueDialog.showDialog();
   } else {
-    showDialog(false, $dialog, $document);
+    $falseDialog.showDialog();
   }
 });
 
-// $dialogCancelButton.addEventListener("click", async (e) => {
-//   e.preventDefault();
-//   $dialog.setAttribute("open", "false");
-// });
-// $dialogConfirmButton.addEventListener("click", async (e) => {
-//   e.preventDefault();
-//   $dialog.setAttribute("open", "false");
-// });
+cleanURL();

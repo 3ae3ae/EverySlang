@@ -1,5 +1,6 @@
 import { getWords, addWordCards, removeAllCards, getNickname } from "./service";
 import DOMPurify from "dompurify";
+import { cleanURL } from "./utils";
 
 let canScrolling = true;
 
@@ -16,7 +17,6 @@ const $login: HTMLAnchorElement = document.getElementById(
 ) as HTMLAnchorElement;
 
 getNickname($login);
-
 const $div = document.getElementById("cards");
 let page = 0;
 
@@ -28,6 +28,7 @@ async function getAndAddWordCards(page: number) {
 }
 
 async function render() {
+  cleanURL();
   const path = window.location.pathname;
   removeAllCards($div!);
   $input.value = path.slice(1);
@@ -74,5 +75,4 @@ window.addEventListener("scroll", async () => {
     canScrolling = true;
   }
 });
-
 render();

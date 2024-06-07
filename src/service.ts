@@ -1,16 +1,19 @@
 import axios from "axios";
-import { wordDto, elementOption } from "./model";
+import { wordDto } from "./model";
 import t_u_f from "./thumb_up_FILL.svg";
 import t_u from "./thumb_up.svg";
 import t_d from "./thumb_down.svg";
 import t_d_f from "./thumb_down_FILL.svg";
 import DOMPurify from "dompurify";
+import { Dialog } from "./dialog";
+import { makeElement } from "./utils";
 
 const BaseUrl = import.meta.env.VITE_SERVER;
 const ax = axios.create({ baseURL: BaseUrl, withCredentials: true });
 const cards: Map<number, number> = new Map();
 
 export {
+  makeElement,
   getProfile,
   login,
   getWords,
@@ -19,51 +22,27 @@ export {
   createWord,
   validateNickname,
   registerMember,
-  showDialog,
-  closeDialog,
   getNickname,
 };
+
+const $askDelete = new Dialog(() => {}, {
+  title: "단어를 삭제하시겠습니까?",
+  content: "다음 단어를 삭제합니다.",
+  hasCancel: true,
+});
 
 async function getProfile(
   $like: HTMLSpanElement,
   $dislike: HTMLSpanElement,
   $words: HTMLSpanElement,
-  $message: HTMLSpanElement
+  name: string
 ) {
-  const res = await ax.get("/profile");
-  const ret = res.data;
+  const res = await ax.get("/profile/" + name);
+  const ret: { [key: string]: string } = res.data;
   $like.textContent = ret.like;
   $dislike.textContent = ret.dislike;
-  $words.textContent = ret.words;
-  $message.textContent = ret.message;
+  $words.textContent = ret.words.replace(/\.,\./g, ", ");
 }
-
-const makeElement = (name: string, option?: elementOption) => {
-  const $e = document.createElement(name);
-  if (!option) return $e;
-  if (option.textContent) $e.textContent = option.textContent;
-  if (option.child)
-    if (option.child instanceof Node) $e.appendChild(option.child);
-    else $e.append(...option.child);
-  if (option.attribute && option.value) {
-    if (
-      typeof option.attribute === "string" &&
-      typeof option.value === "string"
-    ) {
-      option.attribute = [option.attribute];
-      option.value = [option.value];
-    }
-    for (let i = 0; i < option.attribute.length; ++i)
-      $e.setAttribute(option.attribute[i], option.value[i]);
-  }
-  if (option.class) {
-    if (typeof option.class === "string") option.class = [option.class];
-    for (const c of option.class) {
-      $e.classList.add(c);
-    }
-  }
-  return $e;
-};
 
 async function getNickname($login: HTMLAnchorElement) {
   const { data } = await ax.get("/nickname");
@@ -76,7 +55,7 @@ async function getNickname($login: HTMLAnchorElement) {
       makeElement("li", {
         child: makeElement("a", {
           attribute: "href",
-          value: "#",
+          value: "profile.html",
           textContent: "프로필 페이지",
         }),
       }),
@@ -96,7 +75,9 @@ async function getNickname($login: HTMLAnchorElement) {
       })
     );
     $login.parentNode?.replaceChild($details, $login);
+    return data;
   }
+  return "No Name";
 }
 //w.isLike 1: like 0: dislike -1: none
 function makeHeader(w: wordDto) {
@@ -150,17 +131,33 @@ async function addWordCards(words: wordDto[], $div: HTMLElement) {
   const $frag = new DocumentFragment();
   for (const w of words) {
     const $card = document.createElement("article");
+    const $delete =
+      w.deletable === "OK"
+        ? (makeElement("button", {
+            textContent: "삭제하기",
+          }) as HTMLButtonElement)
+        : (undefined as undefined);
+    if ($delete) $card.appendChild($delete);
     const [$header, $like, $dislike] = makeHeader(w);
     const $body = document.createElement("body");
     const $member = document.createElement("footer");
-    $member.textContent = w.nickname;
+    $member.appendChild(
+      makeElement("a", {
+        attribute: ["style", "href"],
+        value: [
+          "text-decoration: none;",
+          "profile.html?username=" + w.nickname,
+        ],
+        textContent: "by " + w.nickname,
+      })
+    );
     $body.innerText = w.meaning;
     $card.appendChild($header);
     $card.appendChild($body);
     $card.appendChild($member);
     $frag.appendChild($card);
     cards.set(w.word_id, w.isLike);
-    addClickListener($like, $dislike, w.word_id);
+    addClickListener($like, $dislike, w.word_id, w.word, $delete);
   }
   $div.appendChild($frag);
 }
@@ -195,11 +192,44 @@ async function createWord($form: HTMLFormElement) {
   $form.submit();
 }
 
+// async function showDeleteDialog(
+//   $dialog: HTMLDialogElement,
+//   $document: HTMLElement,
+//   word: string,
+//   word_id: number
+// ) {
+//   const $title = $dialog.getElementsByTagName("h2")[0] as HTMLHeadingElement;
+//   const $content = $dialog.getElementsByTagName("p")[0] as HTMLParagraphElement;
+//   $title.textContent = "단어를 삭제하시겠습니까?";
+//   $content.textContent = "다음 단어를 삭제합니다: " + word;
+//   document.getElementById("wordId")!.textContent = word_id.toString();
+//   $document.classList.add("modal-is-open", "modal-is-opening");
+//   setTimeout(() => {
+//     $document.classList.remove("modal-is-opening");
+//   }, 500);
+//   $dialog.showModal();
+// }
+
 async function addClickListener(
   $like: HTMLElement,
   $dislike: HTMLElement,
-  word_id: number
+  word_id: number,
+  word: string,
+  $delete?: HTMLButtonElement
 ) {
+  if ($delete) {
+    $delete.addEventListener("click", async () => {
+      console.log("asd");
+      $askDelete.$content.textContent = `다음 단어를 삭제합니다. : ${word}`;
+      $askDelete.confirm = async () => {
+        await ax.get(`/removeword/${word_id}`, {
+          withCredentials: true,
+        });
+        window.location.href = window.location.href;
+      };
+      $askDelete.showDialog();
+    });
+  }
   $like.addEventListener("click", async () => {
     const vote = cards.get(word_id); // vote가 1이면 like, 0이면 dislike, -1이면 기본 상태
     if (vote === 1) {
@@ -276,45 +306,6 @@ async function registerMember(name: string) {
   if (result.data === "OK") {
     return true;
   } else return false;
-}
-
-async function showDialog(
-  ok: boolean,
-  $dialog: HTMLDialogElement,
-  $document: HTMLElement
-) {
-  const $title = $dialog.getElementsByTagName("h2")[0] as HTMLHeadingElement;
-  const $content = $dialog.getElementsByTagName("p")[0] as HTMLParagraphElement;
-  const $comfirmButton = $dialog.getElementsByTagName(
-    "button"
-  )[1] as HTMLButtonElement;
-  if (ok) {
-    $title.textContent = "회원가입이 완료되었습니다.";
-    $content.textContent = "메인 페이지로 이동합니다.";
-    $comfirmButton.hidden = false;
-  } else {
-    $title.textContent = "회원 가입에 실패하였습니다.";
-    $content.textContent = "메인 페이지로 이동합니다.";
-    $comfirmButton.hidden = false;
-  }
-  $document.classList.add("modal-is-open", "modal-is-opening");
-  setTimeout(() => {
-    $document.classList.remove("modal-is-opening");
-  }, 500);
-  $dialog.showModal();
-}
-
-async function closeDialog(
-  $dialog: HTMLDialogElement,
-  $document: HTMLElement,
-  location: string
-) {
-  $document.classList.add("modal-is-closing");
-  setTimeout(() => {
-    $document.classList.remove("modal-is-closing", "modal-is-open");
-  }, 500);
-  $dialog.close();
-  document.location.href = location;
 }
 
 async function login() {

@@ -1,4 +1,5 @@
 import { createWord } from "./service";
+import { cleanURL } from "./utils";
 const $form: HTMLFormElement = document.getElementById(
   "createWord"
 ) as HTMLFormElement;
@@ -10,3 +11,4 @@ $form.addEventListener("submit", async (e) => {
   e.preventDefault();
   await createWord($form);
 });
+cleanURL();

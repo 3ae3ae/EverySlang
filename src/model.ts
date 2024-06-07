@@ -7,6 +7,7 @@ export interface wordDto {
   word_id: number;
   member_id: string;
   nickname: string;
+  deletable: string;
 }
 
 export interface elementOption {
@@ -15,4 +16,10 @@ export interface elementOption {
   value?: string | string[];
   child?: Node | Node[];
   class?: string | string[];
+}
+
+export interface dialogOption {
+  title: string;
+  content: string;
+  hasCancel: boolean;
 }
