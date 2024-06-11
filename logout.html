@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko" class="">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <script
+      src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js"
+      integrity="sha384-kDljxUXHaJ9xAb2AzRd59KxjrFjzHa5TAoFQ6GbYTCAG0bjM55XohjjDT7tDDC01"
+      crossorigin="anonymous"
+    ></script>
+    <title>Logout</title>
+  </head>
+  <body>
+    <header>
+      <nav class="container">
+        <ul>
+          <li>
+            <h1>Logout</h1>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <script>
+      Kakao.init("%VITE_JS_KEY%");
+      Kakao.Auth.authorize({
+        redirectUri: "%VITE_SERVER%/logout",
+      });
+    </script>
+  </body>
+</html>

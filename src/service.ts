@@ -13,6 +13,7 @@ const ax = axios.create({ baseURL: BaseUrl, withCredentials: true });
 const cards: Map<number, number> = new Map();
 
 export {
+  disableAccount,
   makeElement,
   getProfile,
   login,
@@ -44,6 +45,14 @@ async function getProfile(
   $words.textContent = ret.words.replace(/\.,\./g, ", ");
 }
 
+async function disableAccount() {
+  const { data } = await ax.get(`/disableAccount`, {
+    withCredentials: true,
+  });
+  if (data === "OK") return true;
+  else return false;
+}
+
 async function getNickname($login: HTMLAnchorElement) {
   const { data } = await ax.get("/nickname");
   console.log(data);
@@ -62,14 +71,21 @@ async function getNickname($login: HTMLAnchorElement) {
       makeElement("li", {
         child: makeElement("a", {
           attribute: "href",
-          value: "#",
+          value: "nickname.html",
           textContent: "닉네임 변경",
         }),
       }),
       makeElement("li", {
         child: makeElement("a", {
           attribute: "href",
-          value: "#",
+          value: "logout.html",
+          textContent: "로그아웃",
+        }),
+      }),
+      makeElement("li", {
+        child: makeElement("a", {
+          attribute: ["href", "style"],
+          value: ["disableAccount.html", "color: red;"],
           textContent: "회원 탈퇴",
         }),
       })
