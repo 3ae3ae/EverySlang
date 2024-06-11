@@ -24,7 +24,7 @@ const $trueDialog = new Dialog(
   {
     hasCancel: false,
     content: "메인 페이지로 이동합니다.",
-    title: "작업이 완료되었습니다.",
+    title: "닉네임 저장에 성공했습니다.",
   },
   () => {
     window.location.href = "index.html";
@@ -37,7 +37,7 @@ const $falseDialog = new Dialog(
   {
     hasCancel: false,
     content: "메인 페이지로 이동합니다.",
-    title: "작업 중 오류가 발생했습니다.",
+    title: "닉네임 저장 중 오류가 발생했습니다.",
   },
   () => {
     window.location.href = "index.html";
@@ -49,6 +49,10 @@ $document.addEventListener("keydown", (_) => {
 });
 
 $document.addEventListener("click", (_) => {
+  $duplicationButton.disabled = !limit($nickname.value);
+});
+
+$nickname.addEventListener("input", (_) => {
   $duplicationButton.disabled = !limit($nickname.value);
 });
 

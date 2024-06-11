@@ -97,8 +97,7 @@ async function getNickname($login: HTMLAnchorElement) {
 }
 //w.isLike 1: like 0: dislike -1: none
 function makeHeader(w: wordDto) {
-  const $word = document.createElement("span");
-  $word.innerText = w.word;
+  const $word = makeElement("b", { textContent: w.word });
 
   const $likeImage = document.createElement("img");
   let tmp = w.isLike === 1 ? t_u_f : t_u;
@@ -146,16 +145,27 @@ async function getWords(keyword: string, page: Number, $div: HTMLElement) {
 async function addWordCards(words: wordDto[], $div: HTMLElement) {
   const $frag = new DocumentFragment();
   for (const w of words) {
-    const $card = document.createElement("article");
+    const $card = makeElement("article");
     const $delete =
       w.deletable === "OK"
         ? (makeElement("button", {
             textContent: "삭제하기",
+            class: "outline",
+            attribute: "style",
+            value: "padding: 2px 5px; font-size: 60%; margin: 5px",
           }) as HTMLButtonElement)
         : (undefined as undefined);
-    if ($delete) $card.appendChild($delete);
+    if ($delete) {
+      const box = makeElement("div", {
+        class: "container",
+        attribute: "style",
+        value: "display: flex; justify-content: flex-end;",
+        child: $delete,
+      });
+
+      $card.appendChild(box);
+    }
     const [$header, $like, $dislike] = makeHeader(w);
-    const $body = document.createElement("body");
     const $member = document.createElement("footer");
     $member.appendChild(
       makeElement("a", {
@@ -167,10 +177,15 @@ async function addWordCards(words: wordDto[], $div: HTMLElement) {
         textContent: "by " + w.nickname,
       })
     );
-    $body.innerText = w.meaning.replace("/** every slang spacer*/", "\n\nex) ");
-    $card.appendChild($header);
-    $card.appendChild($body);
-    $card.appendChild($member);
+    const [body, ex] = w.meaning.split("/** every slang spacer*/");
+    const $body = makeElement("body", {
+      child: [
+        makeElement("span", { textContent: body }),
+        makeElement("br"),
+        makeElement("small", { textContent: ex }),
+      ],
+    });
+    $card.append($header, document.createElement("hr"), $body, $member);
     $frag.appendChild($card);
     cards.set(w.word_id, w.isLike);
     addClickListener($like, $dislike, w.word_id, w.word, $delete);
