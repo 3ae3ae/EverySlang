@@ -206,11 +206,11 @@ async function createWord($form: HTMLFormElement) {
   if ($word.value.length > 30) {
     window.alert("단어는 30자 이내여아합니다.");
     return;
-  } else if ($meaning.value.length > 100) {
-    window.alert("설명은 100자 이내여아합니다.");
+  } else if ($meaning.value.length > 200) {
+    window.alert("설명은 200자 이내여아합니다.");
     return;
-  } else if ($example.value.length > 100) {
-    window.alert("예문은 100자 이내여아합니다.");
+  } else if ($example.value.length > 200) {
+    window.alert("예문은 200자 이내여아합니다.");
     return;
   }
   if ($word.value.length === 0) {
