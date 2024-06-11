@@ -167,7 +167,7 @@ async function addWordCards(words: wordDto[], $div: HTMLElement) {
         textContent: "by " + w.nickname,
       })
     );
-    $body.innerText = w.meaning;
+    $body.innerText = w.meaning.replace("/** every slang spacer*/", "\n\nex) ");
     $card.appendChild($header);
     $card.appendChild($body);
     $card.appendChild($member);
@@ -187,6 +187,7 @@ const checkXSS = (input: string) => input !== DOMPurify.sanitize(input);
 async function createWord($form: HTMLFormElement) {
   const $word = $form["word"];
   const $meaning = $form["meaning"];
+  const $example = $form["example"];
   if ($word.value.length > 30) {
     window.alert("단어는 30자 이내여아합니다.");
     return;
@@ -201,7 +202,11 @@ async function createWord($form: HTMLFormElement) {
     window.alert("설명을 입력해주세요.");
     return;
   }
-  if (checkXSS($word.value) || checkXSS($meaning.value)) {
+  if (
+    checkXSS($word.value) ||
+    checkXSS($meaning.value) ||
+    checkXSS($example.value)
+  ) {
     window.alert("XSS 스크립트가 발견되었습니다.");
     return;
   }
