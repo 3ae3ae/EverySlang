@@ -209,6 +209,9 @@ async function createWord($form: HTMLFormElement) {
   } else if ($meaning.value.length > 100) {
     window.alert("설명은 100자 이내여아합니다.");
     return;
+  } else if ($example.value.length > 100) {
+    window.alert("예문은 100자 이내여아합니다.");
+    return;
   }
   if ($word.value.length === 0) {
     window.alert("내용을 입력해주세요.");
