@@ -9,12 +9,14 @@ const [$login, $like, $dislike, $words, $name] = [
   document.getElementById("name") as HTMLSpanElement,
 ];
 
-(async function () {
-  const name = await getNickname($login);
-  $name.textContent = name;
-})();
 const param = new URLSearchParams(window.location.search);
 const name = param.get("username")!;
+
+(async function () {
+  await getNickname($login);
+  $name.textContent = name;
+})();
+
 getProfile($like, $dislike, $words, name);
 
 cleanURL();
