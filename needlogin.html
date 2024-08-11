@@ -11,23 +11,35 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-    />
-    <title>Need Login</title>
-  </head>
-  <body>
-    <header>
-      <nav class="container">
-        <ul>
-          <li>
-            <h1>Error</h1>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <main class="container"></main>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Every Slang</h1>
+        <a href="index.html" class="button button-clear">← 돌아가기</a>
+    </nav>
+
+    <div class="main-content">
+        <div class="need-login-container">
+            <h2>로그인 필요</h2>
+            <p>이 기능을 사용하려면 로그인이 필요합니다.</p>
+            <a href="login.html" class="button">로그인 페이지로 이동</a>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Every Slang. All rights reserved.</p>
+            <nav>
+                <a href="about">About</a>
+                <a href="privacy">개인정보 처리방침</a>
+                <a href="terms">이용약관</a>
+                <a href="contact">문의하기</a>
+            </nav>
+        </div>
+    </footer>
+
     <script type="module" src="/src/needlogin.ts"></script>
-  </body>
+</body>
 </html>

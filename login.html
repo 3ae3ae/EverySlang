@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
     />
     <script
       src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.1/kakao.min.js"
@@ -17,29 +17,36 @@
       crossorigin="anonymous"
     ></script>
     <title>Login</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <header>
-      <nav class="container">
-        <ul>
-          <li>
-            <h1>Login</h1>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <a href="index.html">← 돌아가기</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <main class="container">
-      <img
-        src="/kakao_login_medium_wide.png"
-        alt="카카오로 로그인"
-        id="kakao"
-      />
-    </main>
+    <nav class="navbar">
+      <h1>Every Slang</h1>
+      <a href="index.html" class="button button-clear">← 돌아가기</a>
+    </nav>
+
+    <div class="main-content">
+      <div class="login-container">
+        <h2>로그인</h2>
+        <img
+          src="/kakao_login_medium_wide.png"
+          alt="카카오로 로그인"
+          id="kakao"
+        />
+      </div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; 2024 Every Slang. All rights reserved.</p>
+        <nav>
+          <a href="about">About</a>
+          <a href="privacy">개인정보 처리방침</a>
+          <a href="terms">이용약관</a>
+          <a href="contact">문의하기</a>
+        </nav>
+      </div>
+    </footer>
     <script>
       Kakao.init("%VITE_JS_KEY%");
       const $img = document.getElementById("kakao");

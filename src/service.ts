@@ -53,13 +53,24 @@ async function disableAccount() {
   else return false;
 }
 
-async function getNickname($login: HTMLAnchorElement) {
+async function getNickname($user: HTMLDivElement) {
   const { data } = await ax.get("/nickname");
   console.log(data);
   if (data !== "No Name") {
-    const $details = makeElement("details", { class: "dropdown" });
-    $details.appendChild(makeElement("summary", { textContent: data }));
-    const $ul = $details.appendChild(makeElement("ul"));
+    const $details = makeElement("details", {
+      attribute: "style",
+      value: "position: absolute; top: 0;",
+    });
+    $details.appendChild(
+      makeElement("summary", {
+        textContent: data,
+        attribute: "style",
+        value: "list-style: none;",
+      })
+    );
+    const $ul = $details.appendChild(
+      makeElement("ul", { attribute: "style", value: "list-style: none;" })
+    );
     $ul.append(
       makeElement("li", {
         child: makeElement("a", {
@@ -90,9 +101,16 @@ async function getNickname($login: HTMLAnchorElement) {
         }),
       })
     );
-    $login.parentNode?.replaceChild($details, $login);
+    $user.appendChild($details);
     return data;
   }
+  $user.appendChild(
+    makeElement("a", {
+      textContent: "로그인",
+      attribute: ["href", "style"],
+      value: ["login.html", "position: absolute;"],
+    })
+  );
   return "No Name";
 }
 //w.isLike 1: like 0: dislike -1: none
@@ -130,7 +148,7 @@ function makeHeader(w: wordDto) {
 async function getWords(keyword: string, page: Number, $div: HTMLElement) {
   const wordPerPage = 10;
   const $loading = document.createElement("div");
-  $loading.setAttribute("aria-busy", "true");
+  $loading.textContent = "Loading...";
   $div.appendChild($loading);
   const { data } = await ax.get("/search", { params: { keyword, page } });
   console.log([...data]);

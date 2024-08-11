@@ -2,10 +2,10 @@ import { makeElement } from "./utils";
 import { dialogOption } from "./model";
 
 export class Dialog {
-  private $document: HTMLElement = document.documentElement;
+  // private $document: HTMLElement = document.documentElement;
   private $confirmButton: HTMLButtonElement;
   private $cancelButton: HTMLButtonElement;
-  private $closeButton: HTMLButtonElement;
+  // private $closeButton: HTMLButtonElement;
   private $dialog: HTMLDialogElement;
   public $title: HTMLHeadingElement;
   public $content: HTMLParagraphElement;
@@ -22,12 +22,12 @@ export class Dialog {
       value: "dialog",
       child: makeElement("article", {
         child: [
-          makeElement("header", {
-            child: makeElement("button", {
-              attribute: ["aria-label", "rel", "id"],
-              value: ["Close", "prev", "dialogClose" + Dialog.dialogNumber],
-            }),
-          }),
+          // makeElement("header", {
+          //   child: makeElement("button", {
+          //     attribute: ["aria-label", "rel", "id"],
+          //     value: ["Close", "prev", "dialogClose" + Dialog.dialogNumber],
+          //   }),
+          // }),
           makeElement("h2", {
             attribute: "id",
             value: "dialogTitle" + Dialog.dialogNumber,
@@ -37,12 +37,17 @@ export class Dialog {
             value: "dialogBody" + Dialog.dialogNumber,
           }),
           makeElement("footer", {
+            attribute: "style",
+            value: "text-align: right;",
             child: [
               makeElement("button", {
                 attribute: "id",
                 value: "dialogCancel" + Dialog.dialogNumber,
                 class: "secondary",
                 textContent: "취소",
+              }),
+              makeElement("span", {
+                textContent: " "
               }),
               makeElement("button", {
                 attribute: "id",
@@ -70,9 +75,9 @@ export class Dialog {
     this.$confirmButton = this.$dialog.querySelector(
       "#dialogConfirm" + Dialog.dialogNumber
     ) as HTMLButtonElement;
-    this.$closeButton = this.$dialog.querySelector(
-      "#dialogClose" + Dialog.dialogNumber
-    ) as HTMLButtonElement;
+    // this.$closeButton = this.$dialog.querySelector(
+    //   "#dialogClose" + Dialog.dialogNumber
+    // ) as HTMLButtonElement;
     this.$secret = this.$dialog.querySelector(
       "#dialogSecret" + Dialog.dialogNumber
     ) as HTMLSpanElement;
@@ -83,25 +88,25 @@ export class Dialog {
     this.$cancelButton.addEventListener("click", (_) =>
       this.cancel ? this.cancel() : this.closeDialog()
     );
-    this.$closeButton.addEventListener("click", (_) =>
-      this.cancel ? this.cancel() : this.closeDialog()
-    );
+    // this.$closeButton.addEventListener("click", (_) =>
+    //   this.cancel ? this.cancel() : this.closeDialog()
+    // );
     this.$cancelButton.hidden = !option.hasCancel;
     this.$confirmButton.addEventListener("click", (_) => this.confirm());
     document.getElementsByTagName("body")[0].appendChild(this.$dialog);
   }
   showDialog() {
-    this.$document.classList.add("modal-is-open", "modal-is-opening");
-    setTimeout(() => {
-      this.$document.classList.remove("modal-is-opening");
-    }, 500);
+    // this.$document.classList.add("modal-is-open", "modal-is-opening");
+    // setTimeout(() => {
+    //   this.$document.classList.remove("modal-is-opening");
+    // }, 500);
     this.$dialog.showModal();
   }
   closeDialog() {
-    this.$document.classList.add("modal-is-closing");
-    setTimeout(() => {
-      this.$document.classList.remove("modal-is-closing", "modal-is-open");
-    }, 500);
+    // this.$document.classList.add("modal-is-closing");
+    // setTimeout(() => {
+    //   this.$document.classList.remove("modal-is-closing", "modal-is-open");
+    // }, 500);
     this.$dialog.close();
   }
   get secret() {

@@ -18,6 +18,7 @@ export default defineConfig({
         nested7: resolve(__dirname, "disableAccount.html"),
         nested8: resolve(__dirname, "forbidden.html"),
         nested9: resolve(__dirname, "logout.html"),
+        css: resolve(__dirname, "style.css"),
       },
     },
   },

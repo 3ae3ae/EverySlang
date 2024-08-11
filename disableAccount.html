@@ -11,23 +11,36 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-    />
-    <title>Delete Account</title>
-  </head>
-  <body>
-    <header>
-      <nav class="container">
-        <ul>
-          <li>
-            <h1>회원 탈퇴</h1>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <main class="container"></main>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>계정 삭제 - Every Slang</title>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Every Slang</h1>
+        <a href="index.html" class="button button-clear">← 돌아가기</a>
+    </nav>
+
+    <div class="main-content">
+        <div class="disable-account-container">
+            <h2>회원 탈퇴</h2>
+            <p>정말로 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.</p>
+            <button id="disable-account-button" class="button button-outline">회원 탈퇴</button>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Every Slang. All rights reserved.</p>
+            <nav>
+                <a href="about">About</a>
+                <a href="privacy">개인정보 처리방침</a>
+                <a href="terms">이용약관</a>
+                <a href="contact">문의하기</a>
+            </nav>
+        </div>
+    </footer>
+
     <script type="module" src="/src/disableAccount.ts"></script>
-  </body>
+</body>
 </html>

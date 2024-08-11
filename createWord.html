@@ -12,65 +12,78 @@
       async
       defer
     ></script>
+    <title>새 단어 추가 - Every Slang</title>
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css"
     />
-    <title>Every Slang</title>
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <header></header>
-    <main class="container" id="main">
-      <a href="index.html" style="text-decoration: none">← 돌아가기</a>
-      <br />
-      <br />
-      <article>
+    <nav class="navbar">
+      <h1>Every Slang</h1>
+      <a href="index.html" class="button button-clear">← 돌아가기</a>
+    </nav>
+
+    <div class="main-content">
+      <h2>새 단어 추가</h2>
+      <p>
         단어를 작성하기 전 반드시
         <a href="Content Guidelines.html" style="text-decoration: none"
           >Every Slang Content Guideline</a
         >을 읽어주세요.
-        <hr />
         <small
           >많은 사람들이 보기 좋게 작성해주세요. 많은 사람들이 즐길 수 있게
           작성해주세요. <br />
           일반적인 뜻을 적어주세요. 개인적인 농담이나 뜻을 적지 마세요.</small
         >
-      </article>
+      </p>
 
-      <br />
       <form id="createWord" method="post" action="%VITE_SERVER%/create">
         <fieldset>
-          <label>
-            Word
-            <input id="word" name="word" placeholder="Word" type="text" />
-          </label>
+          <label for="word">단어</label>
+          <input
+            type="text"
+            id="word"
+            name="word"
+            required
+            placeholder="Word"
+          />
 
-          <label>
-            Meaning
-            <textarea
-              id="meaning"
-              name="meaning"
-              cols="30"
-              rows="9"
-              placeholder="Meaning"
-            ></textarea>
-          </label>
-          <label>
-            예문
-            <textarea
-              id="example"
-              name="example"
-              cols="30"
-              rows="3"
-              placeholder="Example sentence"
-            ></textarea>
-          </label>
+          <label for="meaning">의미</label>
+          <textarea
+            id="meaning"
+            name="meaning"
+            required
+            placeholder="Meaning"
+          ></textarea>
+
+          <label for="example">예문</label>
+          <textarea
+            id="example"
+            name="example"
+            placeholder="Example sentence"
+          ></textarea>
+
+          <div class="cf-turnstile" data-sitekey="%VITE_SITE_KEY%"></div>
+
+          <input type="submit" value="제출" class="button-primary" />
         </fieldset>
-        <div class="cf-turnstile" data-sitekey="%VITE_SITE_KEY%"></div>
-        <input type="submit" value="Submit" />
       </form>
-    </main>
-    <footer></footer>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>&copy; 2024 Every Slang. All rights reserved.</p>
+        <nav>
+          <a href="about">About</a>
+          <a href="privacy">개인정보 처리방침</a>
+          <a href="terms">이용약관</a>
+          <a href="contact">문의하기</a>
+        </nav>
+      </div>
+    </footer>
+
     <script type="module" src="/src/createWord.ts"></script>
   </body>
 </html>

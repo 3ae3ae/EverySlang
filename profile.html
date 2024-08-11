@@ -7,50 +7,43 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-    />
-    <title>Profile</title>
-  </head>
-  <body>
-    <header></header>
-    <main class="container" id="main">
-      <nav class="grid">
-        <ul>
-          <li>
-            <h1 style="white-space: nowrap">Every Slang</h1>
-          </li>
-        </ul>
-        <ul style="justify-content: flex-end">
-          <li>
-            <a href="login.html" style="text-decoration: none" id="login"
-              >로그인</a
-            >
-          </li>
-          <li>
-            <span> | </span>
-          </li>
-          <li>
-            <a href="createWord.html" style="text-decoration: none"
-              >새 단어 추가</a
-            >
-          </li>
-        </ul>
-      </nav>
-      <h1><span id="name"></span></h1>
-      <div style="display: flex; justify-content: space-between">
-        <span>받은 좋아요: </span>
-        <span id="like"></span>
-      </div>
-      <div style="display: flex; justify-content: space-between">
-        <span>받은 싫어요: </span>
-        <span id="dislike"></span>
-      </div>
-      <span>추가한 단어 목록: </span>
-      <article id="words" class="container"></article>
-    </main>
-    <footer></footer>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Every Slang</h1>
+        <div>
+            <a href="index.html" class="button button-clear">← 돌아가기</a>
+            <a href="login.html" id="login" class="button button-outline">로그인</a>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="profile-info">
+            <h2 id="name"></h2>
+            <div class="profile-stats">
+                <p>받은 좋아요: <span id="like"></span></p>
+                <p>받은 싫어요: <span id="dislike"></span></p>
+            </div>
+        </div>
+
+        <h3>추가한 단어 목록:</h3>
+        <p id="words"></p>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Every Slang. All rights reserved.</p>
+            <nav>
+                <a href="about">About</a>
+                <a href="privacy">개인정보 처리방침</a>
+                <a href="terms">이용약관</a>
+                <a href="contact">문의하기</a>
+            </nav>
+        </div>
+    </footer>
+
     <script type="module" src="/src/profile.ts"></script>
-  </body>
+</body>
 </html>

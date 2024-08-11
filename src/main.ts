@@ -4,19 +4,21 @@ import { cleanURL } from "./utils";
 
 let canScrolling = true;
 
-const $input: HTMLInputElement = document.querySelector(
-  "#search input"
+const $input: HTMLInputElement = document.getElementById(
+  "search"
 ) as HTMLInputElement;
 
-const $searchButton: HTMLButtonElement = document.querySelector(
-  "#search button"
+const $searchButton: HTMLButtonElement = document.getElementById(
+  "search-button"
 ) as HTMLButtonElement;
 
-const $login: HTMLAnchorElement = document.getElementById(
-  "login"
-) as HTMLAnchorElement;
+const $user: HTMLDivElement = document.getElementById("user") as HTMLDivElement;
 
-getNickname($login);
+const $addWordButton: HTMLButtonElement = document.getElementById(
+  "add"
+) as HTMLButtonElement;
+
+getNickname($user);
 const $div = document.getElementById("cards");
 let page = 0;
 
@@ -57,6 +59,10 @@ $searchButton.addEventListener("click", async () => {
   page = 0;
   page = await getAndAddWordCards(page);
   canScrolling = true;
+});
+
+$addWordButton.addEventListener("click", () => {
+  window.location.href = "createWord.html";
 });
 
 window.addEventListener("scroll", async () => {

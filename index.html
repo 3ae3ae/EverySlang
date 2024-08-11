@@ -7,45 +7,44 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-    />
     <title>Every Slang</title>
-  </head>
-  <body>
-    <header></header>
-    <main class="container" id="main">
-      <nav class="grid">
-        <ul>
-          <li>
-            <h1 style="white-space: nowrap">Every Slang</h1>
-          </li>
-        </ul>
 
-        <ul style="justify-content: flex-end">
-          <li>
-            <a href="login.html" style="text-decoration: none" id="login"
-              >로그인</a
-            >
-          </li>
-          <li>
-            <span> | </span>
-          </li>
-          <li>
-            <a href="createWord.html" style="text-decoration: none"
-              >새 단어 추가</a
-            >
-          </li>
-        </ul>
-      </nav>
-      <fieldset role="search" id="search">
-        <input type="search" />
-        <button>search</button>
-      </fieldset>
-      <div id="cards" aria-busy="false"></div>
-    </main>
-    <footer></footer>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Every Slang</h1>
+        <div id="user" style="position: relative;">
+            <div>　　　　　</div>
+            <!-- <a href="login.html" class="button button-clear">로그인</a> -->
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="search-container">
+                <input type="text" id="search" placeholder="검색어를 입력하세요">
+                <button id="search-button" class="button-primary">검색</button>
+                <button id="add" class="button button-outline">새 단어 추가</button>
+            </div>
+
+            <div id="cards"></div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2024 Every Slang. All rights reserved.</p>
+            <nav>
+                <a href="about">About</a>
+                <a href="privacy">개인정보 처리방침</a>
+                <a href="terms">이용약관</a>
+                <a href="contact">문의하기</a>
+            </nav>
+        </div>
+    </footer>
+
     <script type="module" src="/src/main.ts"></script>
-  </body>
+</body>
 </html>

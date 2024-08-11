@@ -7,53 +7,40 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
-    />
-    <title>Set Nickname</title>
-  </head>
-  <body>
-    <header>
-      <nav class="container">
-        <ul>
-          <li>
-            <h1>Nickname</h1>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <a href="index.html">← 돌아가기</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <h1>Every Slang</h1>
+        <a href="index.html" class="button button-clear">← 돌아가기</a>
+    </nav>
 
-    <main class="container">
-      <span>닉네임을 입력하세요: </span>
-      <fieldset role="group">
-        <input
-          type="text"
-          name="nickname"
-          id="nickname"
-          placeholder="username"
-          autocomplete="off"
-        />
-        <button
-          class="secondary"
-          style="white-space: nowrap"
-          id="duplication check"
-          disabled
-        >
-          <span> 중복 확인 </span>
-        </button>
-      </fieldset>
-      <span>
-        닉네임은 3~10글자의 영어 소문자, 숫자로 이루어진 문자열이어야
-        합니다.</span
-      >
-      <input type="submit" id="submit" disabled />
-    </main>
-    <script type="module" src="/src/nickname.ts"></script>
-  </body>
+    <div class="main-content">
+        <h2>닉네임 설정</h2>
+        <form>
+            <fieldset>
+                <label for="nickname">닉네임을 입력하세요:</label>
+                <input type="text" id="nickname" name="nickname" required>
+                <button type="button" id="duplication check" class="button button-outline">중복 확인</button>
+                <p>닉네임은 3~10글자의 영어 소문자, 숫자로 이루어진 문자열이어야 합니다.</p>
+                <input type="submit" id="submit" value="저장" class="button-primary" disabled>
+            </fieldset>
+        </form>
+    </div>
+
+    <footer class="site-footer">
+      <div class="container">
+          <p>&copy; 2024 Every Slang. All rights reserved.</p>
+          <nav>
+              <a href="about">About</a>
+              <a href="privacy">개인정보 처리방침</a>
+              <a href="terms">이용약관</a>
+              <a href="contact">문의하기</a>
+          </nav>
+      </div>
+  </footer>
+
+  <script type="module" src="/src/nickname.ts"></script>
+</body>
 </html>
