@@ -12,7 +12,9 @@
 </head>
 <body>
     <nav class="navbar">
-        <h1>Every Slang</h1>
+        <header>
+            <a href="index.html" class="logo">Every<span>Slang</span></a>
+        </header>
         <a href="index.html" class="button button-clear">← 돌아가기</a>
     </nav>
 
@@ -22,7 +24,7 @@
             <fieldset>
                 <label for="nickname">닉네임을 입력하세요:</label>
                 <input type="text" id="nickname" name="nickname" required>
-                <button type="button" id="duplication check" class="button button-outline">중복 확인</button>
+                <button type="button" id="duplication check" class="button">중복 확인</button>
                 <p>닉네임은 3~10글자의 영어 소문자, 숫자로 이루어진 문자열이어야 합니다.</p>
                 <input type="submit" id="submit" value="저장" class="button-primary" disabled>
             </fieldset>
@@ -30,16 +32,16 @@
     </div>
 
     <footer class="site-footer">
-      <div class="container">
+        <div class="container">
           <p>&copy; 2024 Every Slang. All rights reserved.</p>
           <nav>
-              <a href="about">About</a>
-              <a href="privacy">개인정보 처리방침</a>
-              <a href="terms">이용약관</a>
-              <a href="contact">문의하기</a>
+            <a href="about">About</a>
+            <a href="privacy">개인정보 처리방침</a>
+            <a href="terms">이용약관</a>
+            <a href="contact">문의하기</a>
           </nav>
-      </div>
-  </footer>
+        </div>
+      </footer>
 
   <script type="module" src="/src/nickname.ts"></script>
 </body>

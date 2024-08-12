@@ -59,7 +59,7 @@ async function getNickname($user: HTMLDivElement) {
   if (data !== "No Name") {
     const $details = makeElement("details", {
       attribute: "style",
-      value: "position: absolute; top: 0;",
+      value: "position: absolute; right: 0; top: 0; width: 96.5px; padding: 0;",
     });
     $details.appendChild(
       makeElement("summary", {
@@ -69,7 +69,7 @@ async function getNickname($user: HTMLDivElement) {
       })
     );
     const $ul = $details.appendChild(
-      makeElement("ul", { attribute: "style", value: "list-style: none;" })
+      makeElement("ul", { attribute: "style", value: "list-style: none; margin-bottom: 0;" })
     );
     $ul.append(
       makeElement("li", {
@@ -95,23 +95,26 @@ async function getNickname($user: HTMLDivElement) {
       }),
       makeElement("li", {
         child: makeElement("a", {
-          attribute: ["href", "style"],
-          value: ["disableAccount.html", "color: red;"],
+          attribute: ["href", "id"],
+          value: ["disableAccount.html", "quit"],
           textContent: "회원 탈퇴",
         }),
       })
     );
     $user.appendChild($details);
     return data;
+  } else {
+    console.log("로그인")
+    $user.appendChild(
+      makeElement("a", {
+        textContent: "로그인",
+        class: "button",
+        attribute: ["href", "style"],
+        value: ["login.html", "position: absolute; top: 0; left: 0;"],
+      })
+    );
+    return "No Name";
   }
-  $user.appendChild(
-    makeElement("a", {
-      textContent: "로그인",
-      attribute: ["href", "style"],
-      value: ["login.html", "position: absolute;"],
-    })
-  );
-  return "No Name";
 }
 //w.isLike 1: like 0: dislike -1: none
 function makeHeader(w: wordDto) {

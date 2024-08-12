@@ -8,13 +8,38 @@ html {
   flex-direction: column;
 }
 
+/* 로고 스타일 */
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.logo:hover {
+  transform: scale(1.05);
+}
+
+.logo span {
+  color: #9b4dca;
+}
+
+/* 헤더 스타일 */
+header {
+  padding: 10px 0;
+  text-align: center;
+}
+
 /* Navigation */
 .navbar {
-  position: fixed;
+  /* position: fixed; */
   top: 0;
   left: 0;
   right: 0;
-  background-color: #f4f4f4;
+  background-color: #f4f4f47d;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
@@ -36,6 +61,14 @@ html {
   padding: 20px;
   padding-top: 60px; /* Adjust for navbar height */
   padding-bottom: 60px; /* Adjust for footer height */
+}
+
+#quit {
+  color: red;
+}
+
+#quit:hover {
+  color: deeppink;
 }
 
 .container {
@@ -140,13 +173,7 @@ html {
   color: #9b4dca;
 }
 
-/* Page-specific styles */
-.guidelines,
-.disable-account-container,
-.forbidden-container,
-.login-container,
-.need-login-container,
-.profile-info {
+.gray-container {
   background-color: #f4f4f4;
   padding: 20px;
   border-radius: 4px;
@@ -162,6 +189,12 @@ html {
 
 /* Form styles */
 form {
+  background-color: #f4f4f4;
+  padding: 20px;
+  border-radius: 4px;
+}
+
+details[open] {
   background-color: #f4f4f4;
   padding: 20px;
   border-radius: 4px;

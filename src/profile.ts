@@ -2,7 +2,7 @@ import { getProfile, getNickname } from "./service";
 import { cleanURL } from "./utils";
 
 const [$login, $like, $dislike, $words, $name] = [
-  document.getElementById("login") as HTMLAnchorElement,
+  document.getElementById("user") as HTMLDivElement,
   document.getElementById("like") as HTMLSpanElement,
   document.getElementById("dislike") as HTMLSpanElement,
   document.getElementById("words") as HTMLSpanElement,
