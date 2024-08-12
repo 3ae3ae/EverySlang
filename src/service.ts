@@ -174,7 +174,7 @@ async function addWordCards(words: wordDto[], $div: HTMLElement) {
       w.deletable === "OK"
         ? (makeElement("button", {
             textContent: "삭제하기",
-            class: "button button-outline",
+            class: ["button", "button-outline"],
           }) as HTMLButtonElement)
         : (undefined as undefined);
     if ($delete) {
