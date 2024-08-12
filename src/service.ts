@@ -69,7 +69,10 @@ async function getNickname($user: HTMLDivElement) {
       })
     );
     const $ul = $details.appendChild(
-      makeElement("ul", { attribute: "style", value: "list-style: none; margin-bottom: 0;" })
+      makeElement("ul", {
+        attribute: "style",
+        value: "list-style: none; margin-bottom: 0;",
+      })
     );
     $ul.append(
       makeElement("li", {
@@ -104,7 +107,7 @@ async function getNickname($user: HTMLDivElement) {
     $user.appendChild($details);
     return data;
   } else {
-    console.log("로그인")
+    console.log("로그인");
     $user.appendChild(
       makeElement("a", {
         textContent: "로그인",
@@ -118,7 +121,7 @@ async function getNickname($user: HTMLDivElement) {
 }
 //w.isLike 1: like 0: dislike -1: none
 function makeHeader(w: wordDto) {
-  const $word = makeElement("b", { textContent: w.word });
+  const $word = makeElement("h3", { textContent: w.word });
 
   const $likeImage = document.createElement("img");
   let tmp = w.isLike === 1 ? t_u_f : t_u;
@@ -171,9 +174,7 @@ async function addWordCards(words: wordDto[], $div: HTMLElement) {
       w.deletable === "OK"
         ? (makeElement("button", {
             textContent: "삭제하기",
-            class: "outline",
-            attribute: "style",
-            value: "padding: 2px 5px; font-size: 60%; margin: 5px",
+            class: "button button-outline",
           }) as HTMLButtonElement)
         : (undefined as undefined);
     if ($delete) {
@@ -201,9 +202,9 @@ async function addWordCards(words: wordDto[], $div: HTMLElement) {
     const [body, ex] = w.meaning.split("/** every slang spacer*/");
     const $body = makeElement("body", {
       child: [
-        makeElement("span", { textContent: body }),
+        makeElement("span", { textContent: body, class: "word-contents" }),
         makeElement("br"),
-        makeElement("small", { textContent: ex }),
+        makeElement("small", { textContent: ex, class: "word-contents" }),
       ],
     });
     $card.append($header, document.createElement("hr"), $body, $member);

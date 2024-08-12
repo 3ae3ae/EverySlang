@@ -23,6 +23,10 @@ html {
   transform: scale(1.05);
 }
 
+.word-contents {
+  font-size: small;
+}
+
 .logo span {
   color: #9b4dca;
 }
@@ -110,13 +114,11 @@ header {
 #cards {
   width: 100%;
   max-height: 50vh;
-  overflow-y: auto;
 }
 
 #cards article {
   border: 1px solid #e1e1e1;
   padding: 15px;
-  margin-bottom: 20px;
   border-radius: 4px;
 }
 
@@ -124,7 +126,6 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
 }
 
 #cards article footer {
@@ -177,7 +178,6 @@ header {
   background-color: #f4f4f4;
   padding: 20px;
   border-radius: 4px;
-  margin-bottom: 20px;
   max-width: 600px;
   text-align: center;
 }
