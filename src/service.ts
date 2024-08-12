@@ -33,16 +33,34 @@ const $askDelete = new Dialog(() => {}, {
 });
 
 async function getProfile(
-  $like: HTMLSpanElement,
-  $dislike: HTMLSpanElement,
-  $words: HTMLSpanElement,
-  name: string
+  $like: HTMLDivElement,
+  $dislike: HTMLDivElement,
+  $words: HTMLUListElement,
+  $name: HTMLHeadingElement,
+  name: string,
+  $avatar: HTMLDivElement,
 ) {
+  console.log(name)
+  $avatar.textContent = name.charAt(0)
   const res = await ax.get("/profile/" + name);
+  console.log(name)
   const ret: { [key: string]: string } = res.data;
   $like.textContent = ret.like;
   $dislike.textContent = ret.dislike;
-  $words.textContent = ret.words.replace(/\.,\./g, ", ");
+  $name.textContent = name;
+  const temp = new DocumentFragment();
+  ret.words.split(".,.").forEach((word) => {
+    temp.appendChild(
+      makeElement("li", {
+        child: makeElement("a", {
+          textContent: word,
+          attribute: ["href", "style"],
+          value: [word, "text-decoration: none;"],
+        }),
+      })
+    );
+  });
+  $words.appendChild(temp);
 }
 
 async function disableAccount() {

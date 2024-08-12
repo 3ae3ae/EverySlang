@@ -1,22 +1,22 @@
 import { getProfile, getNickname } from "./service";
 import { cleanURL } from "./utils";
 
-const [$login, $like, $dislike, $words, $name] = [
+const [$user, $like, $dislike, $words, $name, $avatar] = [
   document.getElementById("user") as HTMLDivElement,
-  document.getElementById("like") as HTMLSpanElement,
-  document.getElementById("dislike") as HTMLSpanElement,
-  document.getElementById("words") as HTMLSpanElement,
-  document.getElementById("name") as HTMLSpanElement,
+  document.getElementById("like") as HTMLDivElement,
+  document.getElementById("dislike") as HTMLDivElement,
+  document.getElementById("words") as HTMLUListElement,
+  document.getElementById("name") as HTMLHeadingElement,
+  document.getElementById('avatar') as HTMLDivElement,
 ];
 
 const param = new URLSearchParams(window.location.search);
 const name = param.get("username")!;
 
-(async function () {
-  await getNickname($login);
-  $name.textContent = name;
+(async () => {
+  await getNickname($user);
+  
+  await getProfile($like, $dislike, $words, $name, name, $avatar);
+  
+  cleanURL();
 })();
-
-getProfile($like, $dislike, $words, name);
-
-cleanURL();

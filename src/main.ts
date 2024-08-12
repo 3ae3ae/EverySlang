@@ -33,7 +33,7 @@ async function render() {
   cleanURL();
   const path = window.location.pathname;
   removeAllCards($div!);
-  $input.value = path.slice(1);
+  $input.value = decodeURIComponent(path).slice(1);
   page = 0;
   page = await getAndAddWordCards(page);
 }

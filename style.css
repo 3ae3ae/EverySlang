@@ -204,3 +204,90 @@ details[open] {
   padding: 20px;
   border-radius: 4px;
 }
+
+/* 프로필 페이지 전용 스타일 */
+.profile-page {
+  font-family: 'Arial', sans-serif;
+}
+
+.profile-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin: 40px auto;
+}
+
+.profile-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #ddd;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  color: #666;
+}
+
+.profile-name {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #4a4a4a;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #777;
+}
+
+.profile-word-list {
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.profile-word-list h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.profile-words {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.profile-words li {
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  font-size: 14px;
+}

@@ -23,16 +23,26 @@
     </nav>
 
     <div class="main-content">
-        <div class="gray-container">
-            <h2 id="name"></h2>
+        <div class="profile-container">
+            <div class="profile-header">
+                <div class="profile-avatar" id="avatar"></div>
+                <h2 class="profile-name" id="name"></h2>
+            </div>
             <div class="profile-stats">
-                <p>받은 좋아요: <span id="like"></span></p>
-                <p>받은 싫어요: <span id="dislike"></span></p>
+                <div class="stat-item">
+                    <div class="stat-value" id="like"></div>
+                    <div class="stat-label">받은 좋아요</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value" id="dislike"></div>
+                    <div class="stat-label">받은 싫어요</div>
+                </div>
+            </div>
+            <div class="profile-word-list">
+                <h3>추가한 단어 목록:</h3>
+                <ul class="profile-words" id="words"></ul>
             </div>
         </div>
-
-        <h3>추가한 단어 목록:</h3>
-        <p id="words"></p>
     </div>
 
     <footer class="site-footer">
