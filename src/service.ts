@@ -155,7 +155,7 @@ function makeHeader(w: wordDto) {
   $dislike.appendChild(document.createTextNode(w.dislike_amount + "\u00a0"));
   $dislike.appendChild($dislikeImage);
 
-  const $div = makeElement("div", {attribute: "style", value: "white-space:nowrap;"});
+  const $div = makeElement("div", {attribute: "style", value: "white-space:nowrap; width: 84.6px;"});
   $div.appendChild($like);
   $div.appendChild(document.createTextNode("\u00a0\u00a0"));
   $div.appendChild($dislike);
