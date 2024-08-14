@@ -38,12 +38,12 @@ async function getProfile(
   $words: HTMLUListElement,
   $name: HTMLHeadingElement,
   name: string,
-  $avatar: HTMLDivElement,
+  $avatar: HTMLDivElement
 ) {
-  console.log(name)
-  $avatar.textContent = name.charAt(0)
+  console.log(name);
+  $avatar.textContent = name.charAt(0);
   const res = await ax.get("/profile/" + name);
-  console.log(name)
+  console.log(name);
   const ret: { [key: string]: string } = res.data;
   $like.textContent = ret.like;
   $dislike.textContent = ret.dislike;
@@ -187,7 +187,10 @@ async function getWords(keyword: string, page: Number, $div: HTMLElement) {
 async function addWordCards(words: wordDto[], $div: HTMLElement) {
   const $frag = new DocumentFragment();
   for (const w of words) {
-    const $card = makeElement("article");
+    const $card = makeElement("article", {
+      attribute: "style",
+      value: "word-wrap:break-word; overflow:hidden;",
+    });
     const $delete =
       w.deletable === "OK"
         ? (makeElement("button", {
