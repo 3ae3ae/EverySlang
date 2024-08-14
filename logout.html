@@ -27,10 +27,7 @@
       </nav>
     </header>
     <script>
-      Kakao.init("%VITE_JS_KEY%");
-      Kakao.Auth.authorize({
-        redirectUri: "%VITE_SERVER%/logout",
-      });
+      window.location.href = "%VITE_SERVER%/logout";
     </script>
     <footer class="site-footer">
       <div class="container">
