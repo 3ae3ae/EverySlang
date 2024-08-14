@@ -139,7 +139,7 @@ async function getNickname($user: HTMLDivElement) {
 }
 //w.isLike 1: like 0: dislike -1: none
 function makeHeader(w: wordDto) {
-  const $word = makeElement("h3", { textContent: w.word });
+  const $word = makeElement("h3", { textContent: w.word, attribute: "style", value: "word-break: break-all;" });
 
   const $likeImage = document.createElement("img");
   let tmp = w.isLike === 1 ? t_u_f : t_u;
