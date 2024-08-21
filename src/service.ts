@@ -63,19 +63,6 @@ async function getProfile(
   $words.appendChild(temp);
 }
 
-function makeFooter() {
-  const footer = makeElement("footer", {
-    class: "site-footer",
-    child: makeElement("div", {
-      class: "container",
-      child: [makeElement("img", {
-        attribute: ["src", "style"],
-        value: ["GitHub.png", "width: 12px; height: 12px;"]
-      }), makeElement("a", {attribute: "href", value: "https://github.com/3ae3ae/EverySlang"})]
-    })
-  })
-}
-
 async function disableAccount() {
   const { data } = await ax.get(`/disableAccount`, {
     withCredentials: true,
