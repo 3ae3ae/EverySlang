@@ -81,7 +81,7 @@ async function getNickname($user: HTMLDivElement) {
     });
     $details.appendChild(
       makeElement("summary", {
-        textContent: data,
+        textContent: (data as string).toLowerCase(),
         attribute: "style",
         value: "list-style: none;",
       })
@@ -96,7 +96,7 @@ async function getNickname($user: HTMLDivElement) {
       makeElement("li", {
         child: makeElement("a", {
           attribute: "href",
-          value: "profile.html",
+          value: "profile.html?username=" + data.toLowerCase(),
           textContent: "프로필 페이지",
         }),
       }),

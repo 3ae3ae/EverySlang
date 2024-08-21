@@ -91,7 +91,7 @@ export class Dialog {
     // this.$closeButton.addEventListener("click", (_) =>
     //   this.cancel ? this.cancel() : this.closeDialog()
     // );
-    this.$cancelButton.hidden = !option.hasCancel;
+    // this.$cancelButton.hidden = !option.hasCancel;
     this.$confirmButton.addEventListener("click", (_) => this.confirm());
     document.getElementsByTagName("body")[0].appendChild(this.$dialog);
   }
