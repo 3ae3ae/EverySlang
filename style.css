@@ -165,17 +165,17 @@ hr {
 
 .site-footer .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
-.site-footer nav a {
+.site-footer a {
   margin: 0 10px;
   color: #606c76;
   text-decoration: none;
 }
 
-.site-footer nav a:hover {
+.site-footer a:hover {
   color: #9b4dca;
 }
 
